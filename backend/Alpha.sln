@@ -1,12 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reservation\Alpha.Reservation.API", "Reservation\Alpha.Reservation.API\Alpha.Reservation.API.csproj", "{77060B57-33D9-4F6D-A675-9B25E66F3EBD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alpha.Reservation.API", "Alpha.Reservation.API\Alpha.Reservation.API.csproj", "{77060B57-33D9-4F6D-A675-9B25E66F3EBD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reservation\Alpha.Reservation.App", "Reservation\Alpha.Reservation.App\Alpha.Reservation.App.csproj", "{7803E65D-9728-4174-B35D-53561469CAFF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alpha.Reservation.App", "Alpha.Reservation.App\Alpha.Reservation.App.csproj", "{7803E65D-9728-4174-B35D-53561469CAFF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reservation\Alpha.Reservation.Domain", "Reservation\Alpha.Reservation.Domain\Alpha.Reservation.Domain.csproj", "{DDBBBFB6-ED7A-4DA6-BAB5-CC9E29ADFF0A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alpha.Reservation.Data", "Alpha.Reservation.Data\Alpha.Reservation.Data.csproj", "{DC809865-2FA9-4F8E-805A-AB0F61398F2B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reservation\Alpha.Reservation.Infrastructure", "Reservation\Alpha.Reservation.Infrastructure\Alpha.Reservation.Infrastructure.csproj", "{4857A562-259F-4207-B293-790488E1446C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Alpha.Reservation.Extensions", "Alpha.Reservation.Extensions\Alpha.Reservation.Extensions.csproj", "{8DE80FA3-0797-4871-83D1-F626E03E8F07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,13 +22,13 @@ Global
 		{7803E65D-9728-4174-B35D-53561469CAFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7803E65D-9728-4174-B35D-53561469CAFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7803E65D-9728-4174-B35D-53561469CAFF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DDBBBFB6-ED7A-4DA6-BAB5-CC9E29ADFF0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DDBBBFB6-ED7A-4DA6-BAB5-CC9E29ADFF0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DDBBBFB6-ED7A-4DA6-BAB5-CC9E29ADFF0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DDBBBFB6-ED7A-4DA6-BAB5-CC9E29ADFF0A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4857A562-259F-4207-B293-790488E1446C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4857A562-259F-4207-B293-790488E1446C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4857A562-259F-4207-B293-790488E1446C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4857A562-259F-4207-B293-790488E1446C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC809865-2FA9-4F8E-805A-AB0F61398F2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC809865-2FA9-4F8E-805A-AB0F61398F2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC809865-2FA9-4F8E-805A-AB0F61398F2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC809865-2FA9-4F8E-805A-AB0F61398F2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DE80FA3-0797-4871-83D1-F626E03E8F07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DE80FA3-0797-4871-83D1-F626E03E8F07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DE80FA3-0797-4871-83D1-F626E03E8F07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DE80FA3-0797-4871-83D1-F626E03E8F07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
