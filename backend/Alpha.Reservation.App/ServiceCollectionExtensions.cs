@@ -1,10 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Alpha.Reservation.Domain
+namespace Alpha.Reservation.App
 {
     public static class ServiceCollectionExtensions
     {
-        public static IServiceCollection AddDomain(this IServiceCollection services)
+        public static IServiceCollection AddAppLayer(this IServiceCollection services)
         {
             return services;
         }
