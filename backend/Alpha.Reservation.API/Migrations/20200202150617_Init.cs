@@ -12,7 +12,7 @@ namespace Alpha.Reservation.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(maxLength: 20, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -24,11 +24,11 @@ namespace Alpha.Reservation.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(maxLength: 100, nullable: true),
                     Projector = table.Column<bool>(nullable: false),
                     Board = table.Column<bool>(nullable: false),
-                    Seat = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true)
+                    Seat = table.Column<int>(maxLength: 1000, nullable: false),
+                    Description = table.Column<string>(maxLength: 500, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -40,10 +40,10 @@ namespace Alpha.Reservation.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Login = table.Column<string>(nullable: true),
-                    Password = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
-                    Surname = table.Column<string>(nullable: true),
+                    Login = table.Column<string>(maxLength: 50, nullable: false),
+                    Password = table.Column<string>(maxLength: 50, nullable: false),
+                    Name = table.Column<string>(maxLength: 100, nullable: true),
+                    Surname = table.Column<string>(maxLength: 100, nullable: true),
                     RoleId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -62,8 +62,8 @@ namespace Alpha.Reservation.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    Title = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(maxLength: 100, nullable: true),
+                    Description = table.Column<string>(maxLength: 500, nullable: true),
                     ReservationStart = table.Column<DateTimeOffset>(nullable: false),
                     ReservationEnd = table.Column<DateTimeOffset>(nullable: false),
                     IsConfirmed = table.Column<bool>(nullable: false),
@@ -100,12 +100,12 @@ namespace Alpha.Reservation.API.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Login", "Name", "Password", "RoleId", "Surname" },
-                values: new object[] { new Guid("ecdeddb9-65d8-479f-af81-c566f17ea482"), "Manager", "ManagerName", "test", 1, "ManagerSurname" });
+                values: new object[] { new Guid("dcbac25a-1160-4f34-beb7-b80300af27af"), "Manager", "ManagerName", "test", 1, "ManagerSurname" });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Login", "Name", "Password", "RoleId", "Surname" },
-                values: new object[] { new Guid("9a954dce-fb2d-4215-bcab-261e959a5bc8"), "Employee", "EmployeeName", "test", 2, "EmployeeSurname" });
+                values: new object[] { new Guid("c1b459a7-ad4a-4f1c-8063-464fce436856"), "Employee", "EmployeeName", "test", 2, "EmployeeSurname" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reservations_RoomId",
