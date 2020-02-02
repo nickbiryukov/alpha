@@ -13,15 +13,15 @@ namespace Alpha.Reservation.Data.Entities
 
         public bool Board { get; set; }
 
-        public string Seat { get; set; }
+        public int Seat { get; set; }
 
         public string Description { get; set; }
         
-        public virtual ICollection<Data.Entities.Reservation> Reservations { get; set; }
+        public virtual ICollection<Reservation> Reservations { get; set; }
 
         public Room()
         {
-            Reservations = new List<Data.Entities.Reservation>();
+            Reservations = new List<Reservation>();
         }
     }
 }

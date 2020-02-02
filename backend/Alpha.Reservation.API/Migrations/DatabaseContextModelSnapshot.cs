@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Alpha.Reservation.API.Migrations
 {
-    [DbContext(typeof(RepositoryContext))]
+    [DbContext(typeof(DatabaseContext))]
     partial class DatabaseContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -26,7 +26,8 @@ namespace Alpha.Reservation.API.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
 
                     b.Property<bool>("IsConfirmed")
                         .HasColumnType("bit");
@@ -41,7 +42,8 @@ namespace Alpha.Reservation.API.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -61,7 +63,8 @@ namespace Alpha.Reservation.API.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.HasKey("Id");
 
@@ -90,16 +93,19 @@ namespace Alpha.Reservation.API.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(500)")
+                        .HasMaxLength(500);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.Property<bool>("Projector")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Seat")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Seat")
+                        .HasColumnType("int")
+                        .HasMaxLength(1000);
 
                     b.HasKey("Id");
 
@@ -113,19 +119,25 @@ namespace Alpha.Reservation.API.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Login")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
                     b.Property<string>("Surname")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.HasKey("Id");
 
@@ -136,7 +148,7 @@ namespace Alpha.Reservation.API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ecdeddb9-65d8-479f-af81-c566f17ea482"),
+                            Id = new Guid("dcbac25a-1160-4f34-beb7-b80300af27af"),
                             Login = "Manager",
                             Name = "ManagerName",
                             Password = "test",
@@ -145,7 +157,7 @@ namespace Alpha.Reservation.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("9a954dce-fb2d-4215-bcab-261e959a5bc8"),
+                            Id = new Guid("c1b459a7-ad4a-4f1c-8063-464fce436856"),
                             Login = "Employee",
                             Name = "EmployeeName",
                             Password = "test",

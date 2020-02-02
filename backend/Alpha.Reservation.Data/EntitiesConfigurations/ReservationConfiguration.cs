@@ -9,6 +9,9 @@ namespace Alpha.Reservation.Data.EntitiesConfigurations
         {
             builder.HasKey(a => a.Id);
 
+            builder.Property(a => a.Title).HasMaxLength(100);
+            builder.Property(a => a.Description).HasMaxLength(500);
+
             builder
                 .HasOne(a => a.Room)
                 .WithMany(a => a.Reservations)

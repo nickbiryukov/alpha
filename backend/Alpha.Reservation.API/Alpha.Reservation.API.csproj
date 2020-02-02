@@ -6,15 +6,15 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1" />
+      <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
       <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Alpha.Reservation.App\Alpha.Reservation.App.csproj" />
       <ProjectReference Include="..\Alpha.Reservation.Data\Alpha.Reservation.Data.csproj" />
-      <ProjectReference Include="..\Alpha.Reservation.Domain\Alpha.Reservation.Domain.csproj" />
-      <ProjectReference Include="..\Alpha.Reservation.Infrastructure\Alpha.Reservation.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

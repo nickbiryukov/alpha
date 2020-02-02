@@ -26,7 +26,7 @@ namespace Alpha.Reservation.Data
         {
             services
                 .AddSingleton(dbOptions)
-                .AddDbContext<RepositoryContext>(a =>
+                .AddDbContext<DatabaseContext>(a =>
                 {
                     a.UseSqlServer(dbOptions.DbConnection, b =>
                         b.MigrationsAssembly(dbOptions.DbMigrationAssembly));

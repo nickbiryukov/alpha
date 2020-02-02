@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Alpha.Reservation.Data
 {
-    public class RepositoryContext : DbContext
+    public class DatabaseContext : DbContext
     {
         public DbSet<User> Users { get; set; }
 
@@ -14,7 +14,7 @@ namespace Alpha.Reservation.Data
 
         public DbSet<Entities.Reservation> Reservations { get; set; }
 
-        public RepositoryContext(DbContextOptions options) : base(options)
+        public DatabaseContext(DbContextOptions options) : base(options)
         {
         }
 

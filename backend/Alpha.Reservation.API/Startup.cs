@@ -11,12 +11,12 @@ namespace Alpha.Reservation.API
 {
     public class Startup
     {
+        private readonly IConfiguration _configuration;
+        
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            _configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -27,8 +27,8 @@ namespace Alpha.Reservation.API
                 {
                     a.DbOptions = new DbOptions
                     {
-                        DbConnection = Configuration["DbSettings:DbConnection"],
-                        DbMigrationAssembly = Configuration["DbSettings:DbMigrationAssembly"]
+                        DbConnection = _configuration["DbSettings:DbConnection"],
+                        DbMigrationAssembly = _configuration["DbSettings:DbMigrationAssembly"]
                     };
                 });
         }

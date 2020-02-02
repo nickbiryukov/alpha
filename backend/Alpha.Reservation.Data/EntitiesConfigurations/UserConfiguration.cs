@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Alpha.Reservation.Data.Entities;
 using Alpha.Reservation.Data.Entities.Enums;
 using Microsoft.EntityFrameworkCore;
@@ -7,11 +7,16 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Alpha.Reservation.Data.EntitiesConfigurations
 {
-    public class UserConfiguration: IEntityTypeConfiguration<User>
+    public class UserConfiguration : IEntityTypeConfiguration<User>
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.HasKey(a => a.Id);
+
+            builder.Property(a => a.Login).IsRequired().HasMaxLength(50);
+            builder.Property(a => a.Password).IsRequired().HasMaxLength(50);
+            builder.Property(a => a.Name).HasMaxLength(100);
+            builder.Property(a => a.Surname).HasMaxLength(100);
 
             builder
                 .HasOne(a => a.Role)
@@ -19,7 +24,13 @@ namespace Alpha.Reservation.Data.EntitiesConfigurations
                 .HasForeignKey(a => a.RoleId);
 
             builder
-                .HasData(new List<User>
+                .HasMany(a => a.Reservations)
+                .WithOne(a => a.User)
+                .HasForeignKey(a => a.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder
+                .HasData(new Collection<User>
                 {
                     new User
                     {

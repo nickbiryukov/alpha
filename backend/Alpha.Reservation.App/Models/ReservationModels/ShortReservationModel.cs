@@ -1,11 +1,9 @@
-﻿using System;
+using System;
 
-namespace Alpha.Reservation.Data.Entities
+namespace Alpha.Reservation.App.Models.ReservationModels
 {
-    public class Reservation
+    public class ShortReservationModel
     {
-        public Guid Id { get; set; }
-        
         public string Title { get; set; }
         
         public string Description { get; set; }
@@ -19,14 +17,5 @@ namespace Alpha.Reservation.Data.Entities
         public Guid UserId { get; set; }
 
         public Guid RoomId { get; set; }
-        
-        public virtual User User { get; set; }
-        
-        public virtual Room Room { get; set; }
-
-        public Reservation()
-        {
-            IsConfirmed = false;
-        }
     }
 }
