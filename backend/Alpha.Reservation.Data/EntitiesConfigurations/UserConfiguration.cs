@@ -14,7 +14,7 @@ namespace Alpha.Reservation.Data.EntitiesConfigurations
             builder.HasKey(a => a.Id);
 
             builder.Property(a => a.Login).IsRequired().HasMaxLength(50);
-            builder.Property(a => a.Password).IsRequired().HasMaxLength(50);
+            builder.Property(a => a.PasswordHash).IsRequired().HasMaxLength(100);
             builder.Property(a => a.Name).HasMaxLength(100);
             builder.Property(a => a.Surname).HasMaxLength(100);
 
@@ -38,7 +38,7 @@ namespace Alpha.Reservation.Data.EntitiesConfigurations
                         Login = "Manager",
                         Name = "ManagerName",
                         Surname = "ManagerSurname",
-                        Password = "test",
+                        PasswordHash = "9xHnygSC9V42fWBY8eqA8Q==.Yif8svarnDn8f+N3bhQ/6MyUSSIoo55uXIWv9XtFxyE=",
                         RoleId = ERole.OfficeManager
                     },
                     new User
@@ -47,7 +47,7 @@ namespace Alpha.Reservation.Data.EntitiesConfigurations
                         Login = "Employee",
                         Name = "EmployeeName",
                         Surname = "EmployeeSurname",
-                        Password = "test",
+                        PasswordHash = "9xHnygSC9V42fWBY8eqA8Q==.Yif8svarnDn8f+N3bhQ/6MyUSSIoo55uXIWv9XtFxyE=",
                         RoleId = ERole.Employee
                     }
                 });

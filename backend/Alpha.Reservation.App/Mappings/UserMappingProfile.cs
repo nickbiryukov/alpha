@@ -12,7 +12,9 @@ namespace Alpha.Reservation.App.Mappings
             
             CreateMap<UserModel, User>();
 
-            CreateMap<ShortUserModel, User>();
+            CreateMap<ShortUserModel, User>()
+                .ForMember(a => a.PasswordHash, a =>
+                    a.MapFrom(b => b.Password));
         }
     }
 }

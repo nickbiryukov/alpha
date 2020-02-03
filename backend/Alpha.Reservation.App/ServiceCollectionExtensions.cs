@@ -1,4 +1,6 @@
-﻿using Alpha.Reservation.App.Mappings;
+﻿using Alpha.Reservation.App.Hashing;
+using Alpha.Reservation.App.Hashing.Contracts;
+using Alpha.Reservation.App.Mappings;
 using Alpha.Reservation.App.Services;
 using Alpha.Reservation.App.Services.Contracts;
 using AutoMapper;
@@ -12,6 +14,7 @@ namespace Alpha.Reservation.App
         {
             services
                 .ConfigureAutoMapper()
+                .ConfigureHashProvider()
                 .ConfigureAccountService()
                 .ConfigureReservationService()
                 .ConfigureRoomService()
@@ -34,6 +37,9 @@ namespace Alpha.Reservation.App
             return services;
         }
 
+        private static IServiceCollection ConfigureHashProvider(this IServiceCollection services) =>
+            services.AddScoped<IHashProvider, HashProvider>();
+        
         private static IServiceCollection ConfigureAccountService(this IServiceCollection services) =>
             services.AddScoped<IAccountService, AccountService>();
         

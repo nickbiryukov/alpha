@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Alpha.Reservation.App.Hashing.Contracts;
 using Alpha.Reservation.App.Models.UserModels;
 using Alpha.Reservation.App.Services.Contracts;
 using AutoMapper;
@@ -51,6 +52,12 @@ namespace Alpha.Reservation.API.Controllers
         public async Task Delete(Guid id)
         {
             await _userService.DeleteAsync(id);
+        }
+
+        [HttpGet("Verife")]
+        public bool Verife(string value, string valueHash)
+        {
+            return _userService.Verife(value, valueHash);
         }
     }
 }

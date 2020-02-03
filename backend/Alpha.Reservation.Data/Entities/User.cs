@@ -10,7 +10,7 @@ namespace Alpha.Reservation.Data.Entities
         
         public string Login { get; set; }
         
-        public string Password { get; set; }
+        public string PasswordHash { get; set; }
         
         public string Name { get; set; }
         
@@ -20,11 +20,11 @@ namespace Alpha.Reservation.Data.Entities
         
         public virtual Role Role { get; set; }
         
-        public virtual ICollection<Data.Entities.Reservation> Reservations { get; set; }
+        public virtual ICollection<Reservation> Reservations { get; set; }
 
         public User()
         {
-            Reservations = new List<Data.Entities.Reservation>();
+            Reservations = new List<Reservation>();
         }
     }
 }
