@@ -47,10 +47,12 @@ namespace Alpha.Reservation.App.Hashing
                 throw new FormatException(
                     "Unexpected hash format. Should be formatted as `{salt}.{hash}`");
 
-            var salt = parts[0];
-            var hash = parts[1];
+            var saltPart = parts[0];
+            var hashPart = parts[1];
 
-            return CreateHash(value, salt) == hash;
+            var newHash = CreateHash(value, saltPart);
+
+            return newHash == hashPart;
         }
     }
 }

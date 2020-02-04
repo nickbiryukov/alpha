@@ -1,13 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Alpha.Reservation.Data;
 using Alpha.Reservation.Extensions;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace Alpha.Reservation.API
 {
@@ -17,7 +11,7 @@ namespace Alpha.Reservation.API
         {
             CreateHostBuilder(args)
                 .Build()
-                .MigrateDatabase<DatabaseContext>()
+                //.MigrateDatabase<DatabaseContext>()
                 .Run();
         }
 

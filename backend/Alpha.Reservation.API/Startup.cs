@@ -1,5 +1,9 @@
+using Alpha.Reservation.API.Extensions;
+using Alpha.Reservation.API.Options;
 using Alpha.Reservation.App;
+using Alpha.Reservation.App.Extensions;
 using Alpha.Reservation.Data;
+using Alpha.Reservation.Data.Extensions;
 using Alpha.Reservation.Data.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -21,7 +25,13 @@ namespace Alpha.Reservation.API
         public void ConfigureServices(IServiceCollection services)
         {
             services
-                .AddApiLayer()
+                .AddApiLayer(a =>
+                {
+                    a.JwtTokenOptions = new JwtTokenOptions
+                    {
+                        SecurityKey = _configuration["JwtSettings:SecurityKey"]
+                    };
+                })
                 .AddAppLayer()
                 .AddDataLayer(a =>
                 {
@@ -39,22 +49,21 @@ namespace Alpha.Reservation.API
             {
                 app.UseDeveloperExceptionPage();
             }
-            
-            app.UseSwagger(); 
-            
-            app.UseSwaggerUI(a =>
-            {
-                a.SwaggerEndpoint("/swagger/v1/swagger.json", "Alpha API V1");
-                a.RoutePrefix = "api/help";
-            }); 
 
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+            app
+                .UseSwagger()
+                .UseSwaggerUI(a =>
+                {
+                    a.SwaggerEndpoint("/swagger/v1/swagger.json", "Alpha API V1");
+                    a.RoutePrefix = "api/help";
+                })
+                .UseHttpsRedirection()
+                .UseDefaultFiles()
+                .UseStaticFiles()
+                .UseRouting()
+                .UseAuthentication()
+                .UseAuthorization()
+                .UseEndpoints(a => a.MapControllers());
         }
     }
 }

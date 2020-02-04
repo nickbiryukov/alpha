@@ -53,11 +53,5 @@ namespace Alpha.Reservation.API.Controllers
         {
             await _userService.DeleteAsync(id);
         }
-
-        [HttpGet("Verife")]
-        public bool Verife(string value, string valueHash)
-        {
-            return _userService.Verife(value, valueHash);
-        }
     }
 }

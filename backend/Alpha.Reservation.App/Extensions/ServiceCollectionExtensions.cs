@@ -6,7 +6,7 @@ using Alpha.Reservation.App.Services.Contracts;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Alpha.Reservation.App
+namespace Alpha.Reservation.App.Extensions
 {
     public static class ServiceCollectionExtensions
     {

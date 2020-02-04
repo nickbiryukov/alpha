@@ -8,8 +8,6 @@ namespace Alpha.Reservation.App.Services.Contracts
 {
     public interface IUserService : IRepositoryBase<User>
     {
-        bool Verife(string value, string valueHash);
-        
         Task<User> AddUserAsync(ShortUserModel userModel);
 
         Task<User> UpdateUserAsync(Guid id, ShortUserModel userModel);

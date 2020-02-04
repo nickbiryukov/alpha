@@ -41,10 +41,5 @@ namespace Alpha.Reservation.App.Services
 
             return await UpdateAsync(user);
         }
-        
-        public bool Verife(string value, string valueHash)
-        {
-            return _hashProvider.Validate(value, valueHash);
-        }
     }
 }
