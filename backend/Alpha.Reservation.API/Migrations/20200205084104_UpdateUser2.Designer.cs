@@ -4,14 +4,16 @@ using Alpha.Reservation.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Alpha.Reservation.API.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200205084104_UpdateUser2")]
+    partial class UpdateUser2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -148,7 +150,7 @@ namespace Alpha.Reservation.API.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("10000000-0000-0000-0000-000000000000"),
+                            Id = new Guid("5291d41f-c47c-400f-a465-f353358c9b39"),
                             Login = "Manager",
                             Name = "ManagerName",
                             PasswordHash = "9xHnygSC9V42fWBY8eqA8Q==.Yif8svarnDn8f+N3bhQ/6MyUSSIoo55uXIWv9XtFxyE=",
@@ -157,7 +159,7 @@ namespace Alpha.Reservation.API.Migrations
                         },
                         new
                         {
-                            Id = new Guid("20000000-0000-0000-0000-000000000000"),
+                            Id = new Guid("fba19436-c62c-4e45-8280-d7e76b28c0c0"),
                             Login = "Employee",
                             Name = "EmployeeName",
                             PasswordHash = "9xHnygSC9V42fWBY8eqA8Q==.Yif8svarnDn8f+N3bhQ/6MyUSSIoo55uXIWv9XtFxyE=",

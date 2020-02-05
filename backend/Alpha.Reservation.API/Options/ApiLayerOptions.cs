@@ -2,6 +2,6 @@
 {
     public class ApiLayerOptions
     {
-        public JwtTokenOptions JwtTokenOptions { get; set; }
+        public JwtAuthenticationOptions JwtAuthenticationOptions { get; set; }
     }
 }

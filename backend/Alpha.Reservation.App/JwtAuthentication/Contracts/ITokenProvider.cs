@@ -1,4 +1,5 @@
 ﻿using Alpha.Reservation.App.JwtAuthentication.Models;
+using Alpha.Reservation.App.Models.AccountModels;
 
 namespace Alpha.Reservation.App.JwtAuthentication.Contracts
 {
@@ -6,6 +7,6 @@ namespace Alpha.Reservation.App.JwtAuthentication.Contracts
     {
         TokenModel CreateToken(JwtTokenContext jwtTokenContext);
 
-        TokenModel RefreshToken(string oldToken);
+        TokenModel RefreshToken(RefreshTokenModel tokenModel);
     }
 }

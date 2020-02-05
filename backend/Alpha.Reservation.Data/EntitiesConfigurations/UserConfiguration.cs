@@ -34,7 +34,7 @@ namespace Alpha.Reservation.Data.EntitiesConfigurations
                 {
                     new User
                     {
-                        Id = Guid.NewGuid(),
+                        Id = Guid.Parse("10000000-0000-0000-0000-000000000000"),
                         Login = "Manager",
                         Name = "ManagerName",
                         Surname = "ManagerSurname",
@@ -43,7 +43,7 @@ namespace Alpha.Reservation.Data.EntitiesConfigurations
                     },
                     new User
                     {
-                        Id = Guid.NewGuid(),
+                        Id = Guid.Parse("20000000-0000-0000-0000-000000000000"),
                         Login = "Employee",
                         Name = "EmployeeName",
                         Surname = "EmployeeSurname",

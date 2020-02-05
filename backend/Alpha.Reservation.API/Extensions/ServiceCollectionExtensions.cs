@@ -24,7 +24,7 @@ namespace Alpha.Reservation.API.Extensions
 
             services
                 .ConfigureMvc()
-                .ConfigureJwtAuthentication(apiLayerOptions.JwtTokenOptions)
+                .ConfigureJwtAuthentication(apiLayerOptions.JwtAuthenticationOptions)
                 .ConfigureSwaggerGen();
 
             return services;
@@ -47,10 +47,10 @@ namespace Alpha.Reservation.API.Extensions
         }
 
         private static IServiceCollection ConfigureJwtAuthentication(this IServiceCollection services,
-            JwtTokenOptions jwtTokenOptions)
+            JwtAuthenticationOptions jwtAuthenticationOptions)
         {
             services
-                .AddSingleton(jwtTokenOptions)
+                .AddSingleton(jwtAuthenticationOptions)
                 .AddAuthentication(a =>
                 {
                     a.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -58,16 +58,15 @@ namespace Alpha.Reservation.API.Extensions
                 })
                 .AddJwtBearer(a =>
                 {
-                    var securityKeyBytes = Encoding.ASCII.GetBytes(jwtTokenOptions.SecurityKey);
-
                     a.RequireHttpsMetadata = false;
                     a.SaveToken = true;
                     a.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(securityKeyBytes),
+                        IssuerSigningKey = jwtAuthenticationOptions.GetSymmetricSecurityKey(),
                         ValidateIssuer = false,
-                        ValidateAudience = false
+                        ValidateAudience = false,
+                        ValidIssuer = jwtAuthenticationOptions.Issuer
                     };
                 });
 
@@ -82,11 +81,11 @@ namespace Alpha.Reservation.API.Extensions
 
                 a.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
-                    Description = "Authorization with jwt token (bearer -token-)",
+                    Description = "Authorization with jwt token (Bearer -token-)",
                     Name = "Authorization",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey,
-                    Scheme = "bearer"
+                    Scheme = "Bearer"
                 });
 
                 a.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -97,7 +96,7 @@ namespace Alpha.Reservation.API.Extensions
                             Reference = new OpenApiReference
                             {
                                 Type = ReferenceType.SecurityScheme,
-                                Id = "bearer"
+                                Id = "Bearer"
                             }
                         },
                         new List<string>()

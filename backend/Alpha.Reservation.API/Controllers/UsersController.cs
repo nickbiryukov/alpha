@@ -1,16 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Alpha.Reservation.API.Utils;
 using Alpha.Reservation.App.Hashing.Contracts;
 using Alpha.Reservation.App.Models.UserModels;
 using Alpha.Reservation.App.Services.Contracts;
+using Alpha.Reservation.Data.Entities.Enums;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Alpha.Reservation.API.Controllers
 {
-    [AllowAnonymous]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
@@ -24,12 +26,14 @@ namespace Alpha.Reservation.API.Controllers
             _mapper = mapper;
         }
 
+        [Role(ERole.OfficeManager)]
         [HttpGet]
         public async Task<IEnumerable<UserModel>> GetAll()
         {
             return _mapper.Map<IEnumerable<UserModel>>(await _userService.GetAllAsync());
         }
 
+        [Role(ERole.Employee)]
         [HttpGet("{id}")]
         public async Task<UserModel> Get(Guid id)
         {
