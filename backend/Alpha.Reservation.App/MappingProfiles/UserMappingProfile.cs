@@ -2,7 +2,7 @@ using Alpha.Reservation.App.Models.UserModels;
 using Alpha.Reservation.Data.Entities;
 using AutoMapper;
 
-namespace Alpha.Reservation.App.Mappings
+namespace Alpha.Reservation.App.MappingProfiles
 {
     public class UserMappingProfile : Profile
     {

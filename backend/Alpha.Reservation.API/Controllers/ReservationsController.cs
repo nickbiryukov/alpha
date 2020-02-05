@@ -4,10 +4,12 @@ using System.Threading.Tasks;
 using Alpha.Reservation.App.Models.ReservationModels;
 using Alpha.Reservation.App.Services.Contracts;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Alpha.Reservation.API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class ReservationsController : ControllerBase
@@ -39,12 +41,14 @@ namespace Alpha.Reservation.API.Controllers
             return _mapper.Map<ReservationModel>(await _reservationService.AddReservationAsync(reservationModel));
         }
 
+        [Authorize(Roles = "Office manager")]
         [HttpPut("{id}")]
         public async Task<ReservationModel> Put(Guid id, [FromBody] ShortReservationModel reservationModel)
         {
             return _mapper.Map<ReservationModel>(await _reservationService.UpdateReservationAsync(id, reservationModel));
         }
 
+        [Authorize(Roles = "Office manager")]
         [HttpDelete("{id}")]
         public async Task Delete(Guid id)
         {

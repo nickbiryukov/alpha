@@ -1,7 +1,7 @@
 using Alpha.Reservation.App.Models.ReservationModels;
 using AutoMapper;
 
-namespace Alpha.Reservation.App.Mappings
+namespace Alpha.Reservation.App.MappingProfiles
 {
     public class ReservationMappingProfile : Profile
     {

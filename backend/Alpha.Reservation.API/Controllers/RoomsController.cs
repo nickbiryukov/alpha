@@ -4,10 +4,12 @@ using System.Threading.Tasks;
 using Alpha.Reservation.App.Models.RoomModels;
 using Alpha.Reservation.App.Services.Contracts;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Alpha.Reservation.API.Controllers
 {
+    [Authorize(Roles = "Office manager")]
     [ApiController]
     [Route("api/[controller]")]
     public class RoomsController : ControllerBase

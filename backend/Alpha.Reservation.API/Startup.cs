@@ -1,10 +1,9 @@
 using System;
 using Alpha.Reservation.API.Extensions;
+using Alpha.Reservation.API.Middleware;
 using Alpha.Reservation.API.Options;
-using Alpha.Reservation.App;
 using Alpha.Reservation.App.Extensions;
 using Alpha.Reservation.App.JwtAuthentication.Options;
-using Alpha.Reservation.Data;
 using Alpha.Reservation.Data.Extensions;
 using Alpha.Reservation.Data.Options;
 using Microsoft.AspNetCore.Builder;
@@ -74,6 +73,7 @@ namespace Alpha.Reservation.API
                 .UseRouting()
                 .UseAuthentication()
                 .UseAuthorization()
+                .UseMiddleware(typeof(ErrorHandlingMiddleware))
                 .UseEndpoints(a => a.MapControllers());
         }
     }

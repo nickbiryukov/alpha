@@ -29,7 +29,7 @@ namespace Alpha.Reservation.App.JwtAuthentication
         public TokenModel RefreshToken(RefreshTokenModel tokenModel)
         {
             var jwtToken = new JwtSecurityTokenHandler().ReadJwtToken(tokenModel.OldToken);
-            var claimsIdentity = new ClaimsIdentity(new GenericIdentity(jwtToken.Subject), jwtToken.Claims);
+            var claimsIdentity = new ClaimsIdentity(jwtToken.Claims);
 
             return CreateToken(claimsIdentity);
         }
@@ -55,11 +55,11 @@ namespace Alpha.Reservation.App.JwtAuthentication
 
         private static ClaimsIdentity GetClaimsIdentity(JwtTokenContext jwtTokenContext)
         {
-            return new ClaimsIdentity(new GenericIdentity(jwtTokenContext.Login), new[]
+            return new ClaimsIdentity(new[]
             {
-                new Claim("sub", jwtTokenContext.Login),
-                new Claim("userId", jwtTokenContext.UserId.ToString()),
-                new Claim("role", jwtTokenContext.Role.GetDescription())
+                new Claim(ClaimTypes.NameIdentifier, jwtTokenContext.UserId.ToString()),
+                new Claim(ClaimTypes.Name, jwtTokenContext.Login),
+                new Claim(ClaimTypes.Role, jwtTokenContext.Role.GetDescription())
             });
         }
 
