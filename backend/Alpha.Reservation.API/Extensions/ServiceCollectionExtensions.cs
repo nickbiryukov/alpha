@@ -22,9 +22,26 @@ namespace Alpha.Reservation.API.Extensions
                 .AddSingleton(apiLayerOptions);
 
             services
+                .ConfigureCors()
                 .ConfigureMvc()
                 .ConfigureJwtAuthentication(apiLayerOptions.JwtAuthenticationOptions)
                 .ConfigureSwaggerGen();
+
+            return services;
+        }
+
+        private static IServiceCollection ConfigureCors(this IServiceCollection services)
+        {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder =>
+                {
+                    builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
 
             return services;
         }

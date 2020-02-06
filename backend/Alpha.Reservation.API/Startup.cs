@@ -17,7 +17,7 @@ namespace Alpha.Reservation.API
     public class Startup
     {
         private readonly IConfiguration _configuration;
-        
+
         public Startup(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -67,6 +67,7 @@ namespace Alpha.Reservation.API
                     a.SwaggerEndpoint("/swagger/v1/swagger.json", "Alpha API V1");
                     a.RoutePrefix = "api/help";
                 })
+                .UseCors("CorsPolicy")
                 .UseHttpsRedirection()
                 .UseDefaultFiles()
                 .UseStaticFiles()

@@ -8,14 +8,17 @@ namespace Alpha.Reservation.App.Hashing
 {
     public class HashProvider : IHashProvider
     {
+        private const int Iteration = 10000;
+        private const int KeySize = 32;
+
         public string CreateHash(string value, string salt)
         {
             var valueBytes = KeyDerivation.Pbkdf2(
                 password: value,
                 salt: Encoding.UTF8.GetBytes(salt),
                 prf: KeyDerivationPrf.HMACSHA512,
-                iterationCount: 10000,
-                numBytesRequested: 256 / 8);
+                iterationCount: Iteration,
+                numBytesRequested: KeySize);
 
             return Convert.ToBase64String(valueBytes);
         }
@@ -30,7 +33,7 @@ namespace Alpha.Reservation.App.Hashing
 
         public string CreateSalt()
         {
-            var randomBytes = new byte[128 / 8];
+            var randomBytes = new byte[32];
 
             using (var generator = RandomNumberGenerator.Create())
             {
@@ -39,20 +42,20 @@ namespace Alpha.Reservation.App.Hashing
             }
         }
 
-        public bool Validate(string value, string valueHash)
+        public bool Validate(string value, string hash)
         {
-            var parts = valueHash.Split('.', 2);
+            var parts = hash.Split('.', 2);
 
             if (parts.Length != 2)
                 throw new FormatException(
                     "Unexpected hash format. Should be formatted as `{salt}.{hash}`");
 
             var saltPart = parts[0];
-            var hashPart = parts[1];
+            var keyPart = parts[1];
 
             var newHash = CreateHash(value, saltPart);
 
-            return newHash == hashPart;
+            return newHash == keyPart;
         }
     }
 }
