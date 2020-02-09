@@ -7,6 +7,7 @@ namespace Alpha.Reservation.App.Services.Contracts
     public interface IAccountService
     {
         Task<TokenModel> Login(LoginModel loginModel);
+        
         TokenModel RefreshToken(RefreshTokenModel tokenModel);
     }
 }

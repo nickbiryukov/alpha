@@ -1,0 +1,23 @@
+<h1>Users</h1>
+<p *ngIf="!(users$ | async)"><em>Loading...</em></p>
+
+<table class="table table-sm table-hover" *ngIf="(users$ | async)?.length > 0">
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>Login</th>
+    <th>Name</th>
+    <th>Surname</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of (users$ | async)">
+    <td>{{ user.id }}</td>
+    <td>{{ user.login }}</td>
+    <td>{{ user.name }}</td>
+    <td>{{ user.surname }}</td>
+    <td><button (click)="delete(user.id)" class="btn btn-danger btn-sm float-right">Delete</button></td>
+  </tr>
+  </tbody>
+</table>
