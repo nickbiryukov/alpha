@@ -15,6 +15,9 @@ import {AuthService} from './services/auth.service';
 import { AddRoomComponent } from './pages/rooms/add-room/add-room.component';
 import { ListRoomComponent } from './pages/rooms/list-room/list-room.component';
 import { EditRoomComponent } from './pages/rooms/edit-room/edit-room.component';
+import { DetailUserComponent } from './pages/users/detail-user/detail-user.component';
+import { LoaderComponent } from './common/loader/loader.component';
+import {authInterceptorProviders} from './utils/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,9 @@ import { EditRoomComponent } from './pages/rooms/edit-room/edit-room.component';
     ListUserComponent,
     AddRoomComponent,
     ListRoomComponent,
-    EditRoomComponent
+    EditRoomComponent,
+    DetailUserComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +41,8 @@ import { EditRoomComponent } from './pages/rooms/edit-room/edit-room.component';
     AuthService,
     UserService,
     RoomService,
-    ReservationService
+    ReservationService,
+    authInterceptorProviders
   ],
   bootstrap: [AppComponent]
 })

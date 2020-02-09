@@ -56,8 +56,7 @@ export class UserService {
   }
 
   deleteUser(userId: string) {
-    console.log(this.apiUrl + userId);
-    this.http.delete(this.apiUrl + userId)
+    return this.http.delete(this.apiUrl + userId)
       .pipe(
         retry(1),
         catchError(this.errorHandler)
@@ -65,13 +64,13 @@ export class UserService {
   }
 
   errorHandler(error) {
-    let errorMessage = '';
+    let errorMessage: string;
     if (error.error instanceof ErrorEvent) {
-      errorMessage = error.error.message;
+      errorMessage = `Error: ${error.error.message}`;
     } else {
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    console.log(errorMessage);
+    window.alert(errorMessage);
     return throwError(errorMessage);
   }
 }

@@ -1,0 +1,11 @@
+<div *ngIf="!(user$ | async)"><app-loader></app-loader></div>
+
+<ng-container *ngIf="(user$ | async) as user">
+
+  <p>{{ user.id }}</p>
+  <p>{{ user.login }}</p>
+  <p>{{ user.name }}</p>
+  <p>{{ user.surname }}</p>
+  <p>{{ user.role }}</p>
+
+</ng-container>

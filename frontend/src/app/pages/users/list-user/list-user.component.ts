@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Observable} from 'rxjs';
+import {interval, Observable, Subscription, timer} from 'rxjs';
 import {UserModel} from '../models/user-model';
 import {UserService} from '../../../services/user.service';
 
@@ -10,26 +10,25 @@ import {UserService} from '../../../services/user.service';
 })
 export class ListUserComponent implements OnInit {
 
+  private updateSubscription: Subscription;
   users$: Observable<UserModel[]>;
 
   constructor(private userService: UserService) { }
 
   ngOnInit() {
     this.loadUsers();
+    /*this.updateSubscription = interval(10000)
+      .subscribe(() => this.loadUsers());*/
   }
 
   loadUsers() {
     this.users$ = this.userService.getUsers();
   }
 
-  delete(userId) {
-    this.userService.deleteUser(userId);
+  delete(userId: string) {
     const ans = confirm('Do you want to delete blog post with id: ' + userId);
     if (ans) {
-      console.log(userId);
-      this.userService.deleteUser(userId);
-      /*this.loadUsers();*/
+      this.userService.deleteUser(userId).subscribe(() => this.loadUsers());
     }
   }
-
 }
