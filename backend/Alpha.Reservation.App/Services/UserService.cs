@@ -1,4 +1,5 @@
 using System;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Alpha.Reservation.App.Hashing.Contracts;
 using Alpha.Reservation.App.Models.UserModels;
@@ -23,6 +24,11 @@ namespace Alpha.Reservation.App.Services
 
         public async Task<User> AddUserAsync(ShortUserModel userModel)
         {
+            var existUser = await FirstOrDefaultAsync(a => a.Login == userModel.Login);
+
+            if (existUser != null)
+                throw new Exception("User exist!");
+            
             userModel.Password = _hashProvider.CreateHash(userModel.Password);
             
             var user = _mapper.Map<User>(userModel);

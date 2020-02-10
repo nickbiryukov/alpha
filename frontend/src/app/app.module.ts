@@ -18,6 +18,10 @@ import { EditRoomComponent } from './pages/rooms/edit-room/edit-room.component';
 import { DetailUserComponent } from './pages/users/detail-user/detail-user.component';
 import { LoaderComponent } from './common/loader/loader.component';
 import {authInterceptorProviders} from './utils/auth.interceptor';
+import { LoginComponent } from './pages/auth/login/login.component';
+import { ConfigService } from './services/config.service';
+import { JwtStorageService } from './services/jwt.storage.service';
+import {ExceptionService} from './services/exception.service';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,8 @@ import {authInterceptorProviders} from './utils/auth.interceptor';
     ListRoomComponent,
     EditRoomComponent,
     DetailUserComponent,
-    LoaderComponent
+    LoaderComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +47,8 @@ import {authInterceptorProviders} from './utils/auth.interceptor';
     UserService,
     RoomService,
     ReservationService,
-    authInterceptorProviders
+    ExceptionService
+    /*authInterceptorProviders*/
   ],
   bootstrap: [AppComponent]
 })

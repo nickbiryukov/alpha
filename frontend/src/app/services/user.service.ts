@@ -6,6 +6,7 @@ import {Observable, throwError} from 'rxjs';
 import {UserModel} from '../pages/users/models/user-model';
 import {AddUserModel} from '../pages/users/models/add-user-model';
 import {UserShortModel} from '../pages/users/models/user-short-model';
+import {ExceptionService} from './exception.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,13 +14,8 @@ import {UserShortModel} from '../pages/users/models/user-short-model';
 export class UserService {
 
   apiUrl = '';
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json; charset=utf-8'
-    })
-  };
 
-  constructor(private http: HttpClient, private configService: ConfigService) {
+  constructor(private http: HttpClient, private configService: ConfigService, private exceptionService: ExceptionService) {
     this.apiUrl = configService.getApiUrl() + 'users/';
   }
 
@@ -27,7 +23,7 @@ export class UserService {
     return this.http.get<UserModel[]>(this.apiUrl)
       .pipe(
         retry(1),
-        catchError(this.errorHandler)
+        catchError(this.exceptionService.throwError)
       );
   }
 
@@ -35,23 +31,23 @@ export class UserService {
     return this.http.get<UserModel>(this.apiUrl + userId)
       .pipe(
         retry(1),
-        catchError(this.errorHandler)
+        catchError(this.exceptionService.throwError)
       );
   }
 
   addUser(user: AddUserModel): Observable<UserModel> {
-    return this.http.post<UserModel>(this.apiUrl, JSON.stringify(user), this.httpOptions)
+    return this.http.post<UserModel>(this.apiUrl, JSON.stringify(user), this.configService.getHttpOptions())
       .pipe(
         retry(1),
-        catchError(this.errorHandler)
+        catchError(this.exceptionService.throwError)
       );
   }
 
   editUser(user: UserShortModel): Observable<UserModel> {
-    return this.http.put<UserModel>(this.apiUrl, JSON.stringify(user), this.httpOptions)
+    return this.http.put<UserModel>(this.apiUrl, JSON.stringify(user), this.configService.getHttpOptions())
       .pipe(
         retry(1),
-        catchError(this.errorHandler)
+        catchError(this.exceptionService.throwError)
       );
   }
 
@@ -59,18 +55,7 @@ export class UserService {
     return this.http.delete(this.apiUrl + userId)
       .pipe(
         retry(1),
-        catchError(this.errorHandler)
+        catchError(this.exceptionService.throwError)
       );
-  }
-
-  errorHandler(error) {
-    let errorMessage: string;
-    if (error.error instanceof ErrorEvent) {
-      errorMessage = `Error: ${error.error.message}`;
-    } else {
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-    }
-    window.alert(errorMessage);
-    return throwError(errorMessage);
   }
 }

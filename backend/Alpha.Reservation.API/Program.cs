@@ -11,7 +11,7 @@ namespace Alpha.Reservation.API
         {
             CreateHostBuilder(args)
                 .Build()
-                .MigrateDatabase<DatabaseContext>()
+                //.MigrateDatabase<DatabaseContext>()
                 .Run();
         }
 
