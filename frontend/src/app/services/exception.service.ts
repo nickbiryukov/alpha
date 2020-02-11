@@ -8,14 +8,14 @@ export class ExceptionService {
 
   constructor() { }
 
-  throwError(error) {
+  throwError(error: any) {
     let errorMessage: string;
     if (error.error instanceof ErrorEvent) {
       errorMessage = `Error: ${error.error.message}`;
     } else {
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    /*window.alert(errorMessage);*/
+    window.alert(errorMessage);
     return throwError(errorMessage);
   }
 }

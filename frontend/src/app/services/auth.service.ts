@@ -26,6 +26,10 @@ export class AuthService {
     this.loggedInSource.next(tokenStorageService.isloggedIn);
   }
 
+  get getLoggedInSource(): Subject<boolean> {
+    return this.loggedInSource;
+  }
+
   login(loginModel: LoginModel): Observable<TokenModel> {
     return this.http.post<TokenModel>(
       this.apiUrl + 'login', JSON.stringify(loginModel), this.configService.getHttpOptions())
@@ -33,10 +37,6 @@ export class AuthService {
         retry(1),
         catchError(this.exceptionService.throwError)
       );
-  }
-
-  get getLoggedInSource(): Subject<boolean> {
-    return this.loggedInSource;
   }
 
   signOut() {

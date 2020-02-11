@@ -4,6 +4,8 @@ import {TokenStorageService} from 'src/app/services/token.storage.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../../services/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {ExceptionService} from '../../../services/exception.service';
+import {catchError} from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  loading = false;
   submitted = false;
   returnUrl: string;
   error = '';
@@ -23,7 +24,8 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private tokenStorageService: TokenStorageService,
-    private userService: UserService
+    private userService: UserService,
+    private exceptionService: ExceptionService
   ) {
     if (this.tokenStorageService.isloggedIn) {
       this.router.navigate(['/']);
@@ -49,19 +51,22 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    this.loading = true;
     this.authService.login({
       login: this.fm.username.value,
       password: this.fm.password.value
     }).subscribe(a => {
-      this.tokenStorageService.saveToken(a.value);
+        this.tokenStorageService.saveToken(a.value);
 
-      this.userService.getUserByLogin(this.fm.username.value)
-        .subscribe(b => {
-          this.tokenStorageService.saveUser(b);
-          this.router.navigate([this.returnUrl]);
-          this.authService.getLoggedInSource.next(true);
-        });
-    });
+        this.userService.getUserByLogin(this.fm.username.value)
+          .subscribe(b => {
+              this.tokenStorageService.saveUser(b);
+              this.authService.getLoggedInSource.next(true);
+              this.router.navigate([this.returnUrl]);
+            },
+            catchError(this.exceptionService.throwError)
+          );
+      },
+      catchError(this.exceptionService.throwError)
+    );
   }
 }

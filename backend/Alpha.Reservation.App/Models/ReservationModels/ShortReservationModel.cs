@@ -12,7 +12,7 @@ namespace Alpha.Reservation.App.Models.ReservationModels
         
         public DateTimeOffset ReservationEnd { get; set; }        
 
-        public bool IsConfirmed { get; set; }
+        public bool? IsConfirmed { get; set; }
 
         public Guid UserId { get; set; }
 

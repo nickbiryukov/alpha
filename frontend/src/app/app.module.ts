@@ -20,7 +20,6 @@ import {RoomListComponent} from './pages/rooms/room-list/room-list.component';
 import {JwtInterceptor} from './utils/jwt-interceptor';
 import {TokenStorageService} from './services/token.storage.service';
 import {NavbarComponent} from './common/navbar/navbar.component';
-import { ConfirmComponent } from './common/confirm/confirm.component';
 
 @NgModule({
   declarations: [
@@ -32,8 +31,7 @@ import { ConfirmComponent } from './common/confirm/confirm.component';
     LoaderComponent,
     LoginComponent,
     RoomListComponent,
-    NavbarComponent,
-    ConfirmComponent
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

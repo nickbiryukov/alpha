@@ -14,7 +14,7 @@ namespace Alpha.Reservation.Data.Entities
         
         public DateTimeOffset ReservationEnd { get; set; }        
 
-        public bool IsConfirmed { get; set; }
+        public bool? IsConfirmed { get; set; }
 
         public Guid UserId { get; set; }
 
