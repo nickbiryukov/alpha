@@ -10,20 +10,24 @@ import {ExceptionService} from './exception.service';
 export class RoleService {
   private currentUser: UserModel;
 
-  constructor(private tokenStorageService: TokenStorageService, private exceptionService: ExceptionService) {
+  constructor(
+    private tokenStorageService: TokenStorageService,
+    private exceptionService: ExceptionService
+  ) {
     this.currentUser = tokenStorageService.getUser();
   }
 
   get IsManager() {
+    this.currentUser = this.tokenStorageService.getUser();
     return this.currentUser && this.currentUser.roleId === RoleOptions.OfficeManager;
   }
 
   get IsEmployee() {
+    this.currentUser = this.tokenStorageService.getUser();
     return this.currentUser && this.currentUser.roleId === RoleOptions.Employee;
   }
 
   getRoleName(roleId: number): string {
-
     if (roleId !== 1 && roleId !== 2) {
       this.exceptionService.throwError('Invalid roleId');
     }

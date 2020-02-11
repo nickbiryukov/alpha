@@ -12,7 +12,9 @@ export class RoomListComponent implements OnInit {
 
   rooms$: Observable<RoomModel[]>;
 
-  constructor(private roomService: RoomService) {
+  constructor(
+    private roomService: RoomService
+  ) {
   }
 
   ngOnInit() {
@@ -21,5 +23,13 @@ export class RoomListComponent implements OnInit {
 
   loadRooms() {
     this.rooms$ = this.roomService.getRooms();
+  }
+
+  delete(roomId: string, name: string) {
+    const ans = confirm('Do you want to delete room? ' + name);
+    if (ans) {
+      this.roomService.deleteRoom(roomId)
+        .subscribe(() => this.loadRooms());
+    }
   }
 }
