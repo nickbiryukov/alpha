@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Alpha.Reservation.API.Controllers
 {
-    //[Authorize(Roles = "Office manager")]
+    [Authorize(Roles = "Office Manager")]
     [ApiController]
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
@@ -23,6 +23,13 @@ namespace Alpha.Reservation.API.Controllers
             _mapper = mapper;
         }
 
+        [AllowAnonymous]
+        [HttpGet("ByLogin/{login}")]
+        public async Task<UserModel> GetByLogin(string login)
+        {
+            return _mapper.Map<UserModel>(await _userService.GetByLogin(login));
+        }
+        
         [HttpGet]
         public async Task<IEnumerable<UserModel>> GetAll()
         {

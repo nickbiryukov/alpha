@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { JwtStorageService } from 'src/app/services/jwt.storage.service';
+import { TokenStorageService } from 'src/app/services/token.storage.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {LoginModel} from '../models/login-model';
+import {noop} from 'rxjs';
+import {UserService} from '../../../services/user.service';
+import {RoleService} from '../../../services/role.service';
 
 @Component({
   selector: 'app-login',
@@ -14,8 +18,14 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl: string;
   error = '';
+  isManager: boolean;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private jwtStorageService: JwtStorageService) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private tokenStorageService: TokenStorageService,
+    private userService: UserService
+  ) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -29,7 +39,17 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    // stop here if form is invalid
+    this.authService.login({
+      login: this.f.username.value,
+      password: this.f.password.value
+    }).subscribe(a => {
+        this.tokenStorageService.saveToken(a.value);
+        this.userService.getUserByLogin(this.f.username.value)
+          .subscribe(b => {
+          this.tokenStorageService.saveUser(b);
+        });
+    });
+
     if (this.loginForm.invalid) {
       return;
     }

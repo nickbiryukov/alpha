@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {catchError, retry} from 'rxjs/operators';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {ConfigService} from './config.service';
-import {Observable, throwError} from 'rxjs';
+import {Observable} from 'rxjs';
 import {UserModel} from '../pages/users/models/user-model';
-import {AddUserModel} from '../pages/users/models/add-user-model';
+import {UserAddModel} from '../pages/users/models/user-add-model';
 import {UserShortModel} from '../pages/users/models/user-short-model';
 import {ExceptionService} from './exception.service';
 
@@ -15,7 +15,11 @@ export class UserService {
 
   apiUrl = '';
 
-  constructor(private http: HttpClient, private configService: ConfigService, private exceptionService: ExceptionService) {
+  constructor(
+    private http: HttpClient,
+    private configService: ConfigService,
+    private exceptionService: ExceptionService
+  ) {
     this.apiUrl = configService.getApiUrl() + 'users/';
   }
 
@@ -35,17 +39,27 @@ export class UserService {
       );
   }
 
-  addUser(user: AddUserModel): Observable<UserModel> {
-    return this.http.post<UserModel>(this.apiUrl, JSON.stringify(user), this.configService.getHttpOptions())
+  getUserByLogin(login: string): Observable<UserModel> {
+    return this.http.get<UserModel>(this.apiUrl + `ByLogin/${login}`)
       .pipe(
         retry(1),
         catchError(this.exceptionService.throwError)
       );
   }
 
-  editUser(user: UserShortModel): Observable<UserModel> {
-    return this.http.put<UserModel>(this.apiUrl, JSON.stringify(user), this.configService.getHttpOptions())
-      .pipe(
+  addUser(user: UserAddModel): Observable<UserModel> {
+    return this.http.post<UserModel>(
+      this.apiUrl, JSON.stringify(user), this.configService.getHttpOptions()
+    ).pipe(
+        retry(1),
+        catchError(this.exceptionService.throwError)
+      );
+  }
+
+  editUser(userId: string, user: UserShortModel): Observable<UserModel> {
+    return this.http.put<UserModel>(
+      this.apiUrl + userId, JSON.stringify(user), this.configService.getHttpOptions()
+    ).pipe(
         retry(1),
         catchError(this.exceptionService.throwError)
       );

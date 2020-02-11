@@ -1,0 +1,27 @@
+<p>room-list works!</p>
+<div *ngIf="!(rooms$ | async)">
+  <app-loader></app-loader>
+</div>
+
+<table class="table table-sm table-hover" *ngIf="(rooms$ | async)?.length > 0">
+  <thead>
+  <tr>
+    <th>#</th>
+    <th>name</th>
+    <th>description</th>
+    <th>projector</th>
+    <th>board</th>
+    <th>seat</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let room of (rooms$ | async)">
+    <td>{{ room.id }}</td>
+    <td>{{ room.name }}</td>
+    <td>{{ room.description }}</td>
+    <td>{{ room.projector }}</td>
+    <td>{{ room.board }}</td>
+    <td>{{ room.seat }}</td>
+  </tr>
+  </tbody>
+</table>

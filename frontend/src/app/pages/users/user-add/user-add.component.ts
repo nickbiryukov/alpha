@@ -1,17 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../../services/user.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UserModel} from '../models/user-model';
-import {AddUserModel} from '../models/add-user-model';
-import {UserShortModel} from '../models/user-short-model';
+import {UserAddModel} from '../models/user-add-model';
 
 @Component({
   selector: 'app-add-user',
-  templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.css']
+  templateUrl: './user-add.component.html',
+  styleUrls: ['./user-add.component.css']
 })
-export class AddUserComponent implements OnInit {
+export class UserAddComponent implements OnInit {
   form: FormGroup;
   actionType: string;
   formTitle: string;
@@ -39,6 +38,14 @@ export class AddUserComponent implements OnInit {
     );
   }
 
+  get title() {
+    return this.form.get(this.formTitle);
+  }
+
+  get body() {
+    return this.form.get(this.formBody);
+  }
+
   ngOnInit() {
     if (this.userId) {
       this.actionType = 'Edit';
@@ -57,7 +64,7 @@ export class AddUserComponent implements OnInit {
     }
 
     if (this.actionType === 'Add') {
-      const user: AddUserModel = {
+      const user: UserAddModel = {
         password: '',
         roleId: 1,
         surname: '',
@@ -67,7 +74,7 @@ export class AddUserComponent implements OnInit {
 
       this.userService.addUser(user)
         .subscribe((data) => {
-          this.router.navigate(['edit-user', data.id]);
+          this.router.navigate(['user-edit', data.id]);
         });
     }
 
@@ -89,7 +96,4 @@ export class AddUserComponent implements OnInit {
   cancel() {
     this.router.navigate(['/']);
   }
-
-  get title() { return this.form.get(this.formTitle); }
-  get body() { return this.form.get(this.formBody); }
 }

@@ -1,6 +1,8 @@
 <div class="container">
-  <h1>MAIN Component</h1>
-  <a [routerLink]="['/']" class="btn btn-info">Start</a>
+
+  <app-navbar></app-navbar>
+  <p><a [routerLink]="['/users']" class="btn btn-info">Users</a></p>
+  <p><a [routerLink]="['/rooms']" class="btn btn-info">Rooms</a></p>
   <router-outlet></router-outlet>
 
 </div>

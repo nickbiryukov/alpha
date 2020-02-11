@@ -1,19 +1,25 @@
-import { Component, OnInit } from '@angular/core';
-import {interval, Observable, Subscription, timer} from 'rxjs';
+import {Component, OnInit} from '@angular/core';
+import {Observable, Subscription} from 'rxjs';
 import {UserModel} from '../models/user-model';
 import {UserService} from '../../../services/user.service';
+import {RoleService} from '../../../services/role.service';
 
 @Component({
   selector: 'app-list-user',
-  templateUrl: './list-user.component.html',
-  styleUrls: ['./list-user.component.css']
+  templateUrl: './user-list.component.html',
+  styleUrls: ['./user-list.component.css']
 })
-export class ListUserComponent implements OnInit {
-
+export class UserListComponent implements OnInit {
+  private isManager: boolean;
   private updateSubscription: Subscription;
   users$: Observable<UserModel[]>;
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private roleService: RoleService
+  ) {
+    this.isManager = roleService.IsManager;
+  }
 
   ngOnInit() {
     this.loadUsers();

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Alpha.Reservation.API.Controllers
 {
-    [Authorize(Roles = "Office manager")]
+    [Authorize(Roles = "Office Manager")]
     [ApiController]
     [Route("api/[controller]")]
     public class RoomsController : ControllerBase

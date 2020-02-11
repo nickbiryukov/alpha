@@ -1,4 +1,4 @@
-export class AddUserModel {
+export class UserAddModel {
   login: string;
   password: string;
   name: string;

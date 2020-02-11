@@ -13,6 +13,8 @@ namespace Alpha.Reservation.Data.EntitiesConfigurations
         {
             builder.HasKey(a => a.Id);
 
+            builder.HasIndex(a => a.Login).IsUnique();
+
             builder.Property(a => a.Login).IsRequired().HasMaxLength(50);
             builder.Property(a => a.PasswordHash).IsRequired().HasMaxLength(100);
             builder.Property(a => a.Name).HasMaxLength(100);

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {UserModel} from '../models/user-model';
 import {UserService} from '../../../services/user.service';
@@ -6,15 +6,18 @@ import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-detail-user',
-  templateUrl: './detail-user.component.html',
-  styleUrls: ['./detail-user.component.css']
+  templateUrl: './user-details.component.html',
+  styleUrls: ['./user-details.component.css']
 })
-export class DetailUserComponent implements OnInit {
+export class UserDetailsComponent implements OnInit {
 
   user$: Observable<UserModel>;
   userId: string;
 
-  constructor(private userService: UserService, private activatedRoute: ActivatedRoute) {
+  constructor(
+    private userService: UserService,
+    private activatedRoute: ActivatedRoute
+  ) {
     const idParam = 'id';
     if (this.activatedRoute.snapshot.params[idParam]) {
       this.userId = this.activatedRoute.snapshot.params[idParam];
