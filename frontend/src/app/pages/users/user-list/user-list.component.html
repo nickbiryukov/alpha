@@ -1,27 +1,40 @@
-<script src="user-list.component.ts"></script><h1>Users</h1>
 <div *ngIf="!(users$ | async)">
   <app-loader></app-loader>
 </div>
+<ng-container class="container-md">
 
-<table class="table table-sm table-hover" *ngIf="(users$ | async)?.length > 0">
-  <thead>
-  <tr>
-    <th>#</th>
-    <th>Login</th>
-    <th>Name</th>
-    <th>Surname</th>
-    <th></th>
-    <th></th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let user of (users$ | async)">
-    <td>{{ user.id }}</td>
-    <td><a [routerLink]="['/user-details/', user.id]">{{ user.login }}</a></td>
-    <td>{{ user.name }}</td>
-    <td>{{ user.surname }}</td>
-    <td><a [routerLink]="['/user-edit/', user.id]" class="btn btn-primary btn-sm float-right">Edit</a></td>
-    <td><button (click)="delete(user.id)" class="btn btn-danger btn-sm float-right">Delete</button></td>
-  </tr>
-  </tbody>
-</table>
+  <div class="card rounded shadow shadow-sm">
+    <div class="card-header">
+      <h1 class="mb-0">Users</h1>
+    </div>
+
+    <table *ngIf="(users$ | async)?.length > 0" class="table table-responsive-lg table-hover">
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>Login</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Role</th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let user of (users$ | async); let i = index">
+        <td>{{ i + 1  }}</td>
+        <td>{{ user.login }}</td>
+        <td>{{ user.name }}</td>
+        <td>{{ user.surname }}</td>
+        <td>{{ getRoleName(user.roleId) }}</td>
+        <td><a [routerLink]="['/user-edit/', user.id]" class="btn btn-primary btn-sm float-right">Edit</a></td>
+        <td>
+          <button (click)="delete(user.id, user.login)" class="btn btn-danger btn-sm float-right">Delete</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+</ng-container>

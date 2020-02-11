@@ -13,7 +13,15 @@ export class TokenStorageService {
   }
 
   public get isloggedIn(): boolean {
-    return this.getToken() && this.getUser();
+    return TokenStorageService.hasToken() && TokenStorageService.hasUser();
+  }
+
+  private static hasToken(): boolean {
+    return !!localStorage.getItem(TOKEN_KEY);
+  }
+
+  private static hasUser(): boolean {
+    return !!localStorage.getItem(USER_KEY);
   }
 
   public saveToken(token: string) {

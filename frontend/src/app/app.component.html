@@ -1,8 +1,7 @@
-<div class="container">
+<app-navbar></app-navbar>
+<div class="container-md">
 
-  <app-navbar></app-navbar>
-  <p><a [routerLink]="['/users']" class="btn btn-info">Users</a></p>
-  <p><a [routerLink]="['/rooms']" class="btn btn-info">Rooms</a></p>
+  <app-confirm></app-confirm>
   <router-outlet></router-outlet>
 
 </div>

@@ -31,8 +31,12 @@ export class UserListComponent implements OnInit {
     this.users$ = this.userService.getUsers();
   }
 
-  delete(userId: string) {
-    const ans = confirm('Do you want to delete blog post with id: ' + userId);
+  getRoleName(roleId: number): string {
+    return this.roleService.getRoleName(roleId);
+  }
+
+  delete(userId: string, login: string) {
+    const ans = confirm('Do you want to delete user? ' + login);
     if (ans) {
       this.userService.deleteUser(userId).subscribe(() => this.loadUsers());
     }

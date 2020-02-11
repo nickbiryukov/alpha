@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {throwError} from 'rxjs';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class ExceptionService {
     } else {
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    window.alert(errorMessage);
+    /*window.alert(errorMessage);*/
     return throwError(errorMessage);
   }
 }

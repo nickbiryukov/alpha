@@ -8,12 +8,12 @@ import {AuthGuard} from './utils/auth.guard';
 import {RoomListComponent} from './pages/rooms/room-list/room-list.component';
 
 const routes: Routes = [
-  {path: '', component: UserListComponent, canActivate: [AuthGuard], pathMatch: 'full'},
-  {path: 'users', component: UserListComponent, canActivate: [AuthGuard]},
+  {path: '', component: RoomListComponent, canActivate: [AuthGuard], pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
+  {path: 'users', component: UserListComponent, canActivate: [AuthGuard]},
   {path: 'rooms', component: RoomListComponent, canActivate: [AuthGuard]},
-  {path: 'user-details/:id', component: UserDetailsComponent},
-  {path: 'user-edit/:id', component: UserAddComponent},
+  {path: 'user-details/:id', component: UserDetailsComponent, canActivate: [AuthGuard]},
+  {path: 'user-edit/:id', component: UserAddComponent, canActivate: [AuthGuard]},
   {path: '**', redirectTo: '/'}
 ];
 

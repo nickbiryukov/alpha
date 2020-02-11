@@ -2,10 +2,11 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ConfigService} from './config.service';
 import {LoginModel} from '../pages/auth/models/login-model';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {TokenModel} from '../pages/auth/models/token-model';
 import {catchError, retry} from 'rxjs/operators';
 import {ExceptionService} from './exception.service';
+import {TokenStorageService} from './token.storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +14,16 @@ import {ExceptionService} from './exception.service';
 export class AuthService {
 
   private apiUrl = '';
+  private loggedInSource = new Subject<boolean>();
 
-  constructor(private http: HttpClient, private configService: ConfigService,
-              private exceptionService: ExceptionService) {
+  constructor(
+    private http: HttpClient,
+    private configService: ConfigService,
+    private exceptionService: ExceptionService,
+    private tokenStorageService: TokenStorageService
+  ) {
     this.apiUrl = configService.getApiUrl() + 'accounts/';
+    this.loggedInSource.next(tokenStorageService.isloggedIn);
   }
 
   login(loginModel: LoginModel): Observable<TokenModel> {
@@ -26,5 +33,14 @@ export class AuthService {
         retry(1),
         catchError(this.exceptionService.throwError)
       );
+  }
+
+  get getLoggedInSource(): Subject<boolean> {
+    return this.loggedInSource;
+  }
+
+  signOut() {
+    this.loggedInSource.next(false);
+    this.tokenStorageService.signOut();
   }
 }

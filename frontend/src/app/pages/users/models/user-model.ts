@@ -3,5 +3,5 @@ export class UserModel {
   login: string;
   name: string;
   surname: string;
-  role: number;
+  roleId: number;
 }

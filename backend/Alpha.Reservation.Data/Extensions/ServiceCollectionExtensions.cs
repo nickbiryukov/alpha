@@ -28,10 +28,10 @@ namespace Alpha.Reservation.Data.Extensions
                 .AddSingleton(dbOptions)
                 .AddDbContext<DatabaseContext>(a =>
                 {
-                    a.UseSqlServer(dbOptions.DbConnection, b =>
-                        b.MigrationsAssembly(dbOptions.DbMigrationAssembly));
+                    //a.UseSqlServer(dbOptions.DbConnection, b =>
+                     //   b.MigrationsAssembly(dbOptions.DbMigrationAssembly));
 
-                    //a.UseInMemoryDatabase("Alpha");
+                    a.UseInMemoryDatabase("Alpha");
                 });
 
             return services;

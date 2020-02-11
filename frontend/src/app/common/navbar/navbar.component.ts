@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {RoleService} from '../../services/role.service';
-import {AuthService} from '../../services/auth.service';
 import {TokenStorageService} from '../../services/token.storage.service';
 import {UserModel} from '../../pages/users/models/user-model';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,23 +10,23 @@ import {UserModel} from '../../pages/users/models/user-model';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  private isManager: boolean;
-  private currentUser: UserModel;
+
+  private currentUser = {login: ''};
   private navbarOpen = false;
+  private isloggedIn: boolean;
 
   constructor(
     private roleService: RoleService,
-    private tokenStorageService: TokenStorageService
+    private tokenStorageService: TokenStorageService,
+    private authService: AuthService
   ) {
-    this.isManager = roleService.IsManager;
-    this.currentUser = tokenStorageService.getUser();
+    this.currentUser = this.tokenStorageService.getUser();
+    this.isloggedIn = this.tokenStorageService.isloggedIn;
 
-    /*if(tokenStorageService.isloggedIn) {
-
-    }*/
-  }
-
-  ngOnInit() {
+    this.authService.getLoggedInSource.subscribe(hasAuth => {
+      this.currentUser = tokenStorageService.getUser();
+      this.isloggedIn = hasAuth;
+    });
   }
 
   toggleNavbar() {
@@ -34,6 +34,9 @@ export class NavbarComponent implements OnInit {
   }
 
   signOut() {
-    this.tokenStorageService.signOut();
+    this.authService.signOut();
+  }
+
+  ngOnInit(): void {
   }
 }

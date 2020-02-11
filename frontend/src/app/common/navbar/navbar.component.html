@@ -1,31 +1,33 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-info">
+<div class="card rounded shadow shadow-sm" style="margin-bottom: 50px">
+  <nav *ngIf=isloggedIn class="navbar navbar-expand-lg navbar-light bg-light">
 
-  <a class="navbar-brand" href="/">
-    ALPHA
-  </a>
+    <a [routerLink]="['/']" class="navbar-brand">
+      ALPHA
+    </a>
 
-  <button class="navbar-toggler" type="button" (click)="toggleNavbar()">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <button (click)="toggleNavbar()" class="navbar-toggler" type="button">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="collapse navbar-collapse" [ngClass]="{ 'show': navbarOpen }">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/rooms']">Rooms</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/reservations']">Reservations</a>
-      </li>
-      <li class="nav-item" *ngIf="[isManager]">
-        <a class="nav-link" [routerLink]="['/users']">Users</a>
-      </li>
-    </ul>
+    <div [ngClass]="{ 'show': navbarOpen }" class="collapse navbar-collapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a [routerLink]="['/rooms']" class="nav-link">Rooms</a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['/reservations']" class="nav-link">Reservations</a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['/users']" class="nav-link">Users</a>
+        </li>
+      </ul>
 
-    <ul class="nav navbar-nav navbar-right">
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['/login']" (click)="signOut()">SignOut</a>
-      </li>
-    </ul>
-  </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="nav-item">
+          <a (click)="signOut()" [routerLink]="['/login']" class="nav-link">SignOut ({{currentUser.login}})</a>
+        </li>
+      </ul>
+    </div>
 
-</nav>
+  </nav>
+</div>

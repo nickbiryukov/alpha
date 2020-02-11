@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Alpha.Reservation.API.Controllers
 {
-    [Authorize(Roles = "Office Manager")]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class RoomsController : ControllerBase
@@ -35,18 +35,21 @@ namespace Alpha.Reservation.API.Controllers
             return _mapper.Map<RoomModel>(await _roomService.GetAsync(id));
         }
 
+        [Authorize(Roles = "Office Manager")]
         [HttpPost]
         public async Task<RoomModel> Post([FromBody] ShortRoomModel roomModel)
         {
             return _mapper.Map<RoomModel>(await _roomService.AddRoomAsync(roomModel));
         }
 
+        [Authorize(Roles = "Office Manager")]
         [HttpPut("{id}")]
         public async Task<RoomModel> Put(Guid id, [FromBody] ShortRoomModel roomModel)
         {
             return _mapper.Map<RoomModel>(await _roomService.UpdateRoomAsync(id, roomModel));
         }
 
+        [Authorize(Roles = "Office Manager")]
         [HttpDelete("{id}")]
         public async Task Delete(Guid id)
         {

@@ -19,7 +19,8 @@ import {ExceptionService} from './services/exception.service';
 import {RoomListComponent} from './pages/rooms/room-list/room-list.component';
 import {JwtInterceptor} from './utils/jwt-interceptor';
 import {TokenStorageService} from './services/token.storage.service';
-import { NavbarComponent } from './common/navbar/navbar.component';
+import {NavbarComponent} from './common/navbar/navbar.component';
+import { ConfirmComponent } from './common/confirm/confirm.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { NavbarComponent } from './common/navbar/navbar.component';
     LoaderComponent,
     LoginComponent,
     RoomListComponent,
-    NavbarComponent
+    NavbarComponent,
+    ConfirmComponent
   ],
   imports: [
     BrowserModule,
@@ -40,13 +42,12 @@ import { NavbarComponent } from './common/navbar/navbar.component';
     ReactiveFormsModule
   ],
   providers: [
+    TokenStorageService,
     AuthService,
+    ExceptionService,
     UserService,
     RoomService,
     ReservationService,
-    ExceptionService,
-    TokenStorageService,
-    ExceptionService,
 
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
   ],

@@ -1,11 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
-import { TokenStorageService } from 'src/app/services/token.storage.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import {LoginModel} from '../models/login-model';
-import {noop} from 'rxjs';
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from 'src/app/services/auth.service';
+import {TokenStorageService} from 'src/app/services/token.storage.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../../services/user.service';
-import {RoleService} from '../../../services/role.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -18,46 +16,52 @@ export class LoginComponent implements OnInit {
   submitted = false;
   returnUrl: string;
   error = '';
-  isManager: boolean;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
+    private route: ActivatedRoute,
+    private router: Router,
     private tokenStorageService: TokenStorageService,
     private userService: UserService
-  ) { }
+  ) {
+    if (this.tokenStorageService.isloggedIn) {
+      this.router.navigate(['/']);
+    }
+  }
+
+  get fm() {
+    return this.loginForm.controls;
+  }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
-  }
 
-  get f() { return this.loginForm.controls; }
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+  }
 
   onSubmit() {
     this.submitted = true;
-
-    this.authService.login({
-      login: this.f.username.value,
-      password: this.f.password.value
-    }).subscribe(a => {
-        this.tokenStorageService.saveToken(a.value);
-        this.userService.getUserByLogin(this.f.username.value)
-          .subscribe(b => {
-          this.tokenStorageService.saveUser(b);
-        });
-    });
-
     if (this.loginForm.invalid) {
       return;
     }
 
     this.loading = true;
-  }
+    this.authService.login({
+      login: this.fm.username.value,
+      password: this.fm.password.value
+    }).subscribe(a => {
+      this.tokenStorageService.saveToken(a.value);
 
-  reloadPage() {
-    window.location.reload();
+      this.userService.getUserByLogin(this.fm.username.value)
+        .subscribe(b => {
+          this.tokenStorageService.saveUser(b);
+          this.router.navigate([this.returnUrl]);
+          this.authService.getLoggedInSource.next(true);
+        });
+    });
   }
 }

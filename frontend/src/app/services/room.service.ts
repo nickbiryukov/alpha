@@ -11,7 +11,6 @@ import {RoomShortModel} from '../pages/rooms/models/room-short-model';
   providedIn: 'root'
 })
 export class RoomService {
-
   apiUrl = '';
 
   constructor(
