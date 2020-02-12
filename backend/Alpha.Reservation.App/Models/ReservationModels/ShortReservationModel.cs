@@ -8,9 +8,11 @@ namespace Alpha.Reservation.App.Models.ReservationModels
         
         public string Description { get; set; }
         
-        public DateTimeOffset ReservationStart { get; set; }
-        
-        public DateTimeOffset ReservationEnd { get; set; }        
+        public DateTime Date { get; set; }
+
+        public TimeSpan BeginTime { get; set; }
+
+        public TimeSpan EndTime { get; set; }        
 
         public bool? IsConfirmed { get; set; }
 

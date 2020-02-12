@@ -1,8 +1,9 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Pipe, PipeTransform} from '@angular/core';
 import {TokenStorageService} from './token.storage.service';
 import {UserModel} from '../pages/users/models/user-model';
 import {RoleOptions} from '../pages/auth/models/role-options';
 import {ExceptionService} from './exception.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class RoleService {
 
   constructor(
     private tokenStorageService: TokenStorageService,
-    private exceptionService: ExceptionService
+    private exceptionService: ExceptionService,
+    private roleService: RoleService
   ) {
     this.currentUser = tokenStorageService.getUser();
   }

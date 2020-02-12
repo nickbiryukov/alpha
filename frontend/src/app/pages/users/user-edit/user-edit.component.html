@@ -1,1 +1,72 @@
-<p>edit-user works!</p>
+<ng-container class="container-md">
+
+  <div class="col-lg-6 col-md-12 mx-auto">
+    <div class="card rounded shadow shadow-sm">
+      <div class="card-header">
+        <h3 class="float-left">{{actionType}} User</h3>
+      </div>
+
+      <div class="card-body">
+        <form #f="ngForm" (ngSubmit)="save()" [formGroup]="form" novalidate>
+          <div class="form-group row">
+            <label class="control-label col-md-12">Login</label>
+            <div class="col-md-12">
+              <input class="form-control" formControlName="login" type="text">
+            </div>
+            <span *ngIf="login.invalid && f.submitted" class="text-danger ml-3">
+      Login is required.
+    </span>
+          </div>
+
+          <div class="form-group row">
+            <label class="control-label col-md-12">Password</label>
+            <div class="col-md-12">
+              <input class="form-control" formControlName="password" type="text">
+            </div>
+            <span *ngIf="password.invalid && f.submitted" class="text-danger ml-3">
+      Password is required.
+    </span>
+          </div>
+
+          <div class="form-group row">
+            <label class="control-label col-md-12">Name</label>
+            <div class="col-md-12">
+              <input class="form-control" formControlName="name" type="text">
+            </div>
+            <span *ngIf="name.invalid && f.submitted" class="text-danger ml-3">
+      Name is required.
+    </span>
+          </div>
+
+          <div class="form-group row">
+            <label class="control-label col-md-12">Surname</label>
+            <div class="col-md-12">
+              <input class="form-control" formControlName="surname" type="text">
+            </div>
+            <span *ngIf="surname.invalid && f.submitted" class="text-danger ml-3">
+      Surname is required.
+    </span>
+          </div>
+
+          <div class="form-group row" style="margin-bottom: 70px">
+            <label class="control-label col-md-12">Role</label>
+            <div class="col-md-12">
+              <select class="form-control form-control-lg" formControlName="role">
+                <option *ngFor="let role of roles | enumToArray">{{ role.name }}</option>
+              </select>
+            </div>
+            <span *ngIf="role.invalid && f.submitted" class="text-danger ml-3">
+      Role is required.
+    </span>
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-outline-success float-right" type="submit">Save</button>
+            <button (click)="cancel()" class="btn btn-outline-secondary float-left">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</ng-container>

@@ -1,40 +1,49 @@
-<div *ngIf="!(rooms$ | async)">
+<div *ngIf="!(rooms | async)">
   <app-loader></app-loader>
 </div>
-
 <ng-container class="container-lg">
 
   <div class="card rounded shadow shadow-sm">
     <div class="card-header">
       <h3 class="float-left">Rooms</h3>
-      <a [routerLink]="['/add-room']" class="btn btn-outline-secondary float-right mb-3">Add Room</a>
+      <a [routerLink]="['/room-add']" class="btn btn-outline-secondary float-right mb-3">Add Room</a>
     </div>
 
     <div class="card-body">
-      <table class="table table-hover" *ngIf="(rooms$ | async)?.length > 0">
+      <table class="table table-hover" *ngIf="(rooms | async)?.length > 0">
         <thead>
         <tr>
           <th>#</th>
-          <th>name</th>
-          <th>description</th>
-          <th>projector</th>
-          <th>board</th>
-          <th>seat</th>
+          <th>Name</th>
+          <th>Seat</th>
+          <th>Projector</th>
+          <th>Board</th>
+          <th>Date</th>
           <th></th>
-          <th></th>
+          <th *ngIf="isManager"></th>
+          <th *ngIf="isManager"></th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let room of (rooms$ | async); let i = index">
+        <tr *ngFor="let room of (rooms | async); let i = index">
           <td>{{ i + 1 }}</td>
           <td>{{ room.name }}</td>
-          <td>{{ room.description }}</td>
+          <td>{{ room.seat }}</td>
           <td>{{ room.projector }}</td>
           <td>{{ room.board }}</td>
-          <td>{{ room.seat }}</td>
-          <td><a [routerLink]="['/room-edit/', room.id]" class="btn btn-outline-primary btn-sm float-right">Edit</a></td>
-          <td>
-            <button (click)="delete(room.id, room.name)" class="btn btn-outline-danger btn-sm float-right">Delete</button>
+          <td>{{ getEarlierTime(room) }}</td>
+          <td><a [routerLink]="['/room-details/', room.id]" class="btn btn-outline-success btn-sm float-right">
+            Details
+          </a></td>
+          <td *ngIf="isManager">
+            <a [routerLink]="['/room-edit/', room.id]" class="btn btn-outline-primary btn-sm float-right">
+              Edit
+            </a>
+          </td>
+          <td *ngIf="isManager">
+            <button (click)="delete(room.id, room.name)" class="btn btn-outline-danger btn-sm float-right">
+              Delete
+            </button>
           </td>
         </tr>
         </tbody>

@@ -27,7 +27,7 @@ namespace Alpha.Reservation.App.Services
             var existUser = await FirstOrDefaultAsync(a => a.Login == userModel.Login);
 
             if (existUser != null)
-                throw new Exception("User exist!");
+                throw new Exception("User exist");
             
             userModel.Password = _hashProvider.CreateHash(userModel.Password);
             

@@ -35,6 +35,12 @@ namespace Alpha.Reservation.API.Controllers
             return _mapper.Map<RoomModel>(await _roomService.GetAsync(id));
         }
 
+        [HttpGet("WithDetails")]
+        public async Task<List<RoomWithDetailsModel>> GetWithDetails()
+        {
+            return _mapper.Map<List<RoomWithDetailsModel>>(await _roomService.GetWithDetails());
+        }
+
         [Authorize(Roles = "Office Manager")]
         [HttpPost]
         public async Task<RoomModel> Post([FromBody] ShortRoomModel roomModel)

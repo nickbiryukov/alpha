@@ -5,14 +5,14 @@ import {UserService} from '../../../services/user.service';
 import {RoleService} from '../../../services/role.service';
 
 @Component({
-  selector: 'app-list-user',
+  selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
   private isManager: boolean;
   private updateSubscription: Subscription;
-  private users$: Observable<UserModel[]>;
+  private users: Observable<UserModel[]>;
 
   constructor(
     private userService: UserService,
@@ -23,12 +23,12 @@ export class UserListComponent implements OnInit {
 
   ngOnInit() {
     this.loadUsers();
-    /*this.updateSubscription = interval(10000)
-      .subscribe(() => this.loadUsers());*/
+    this.updateSubscription = interval(10000)
+      .subscribe(() => this.loadUsers());
   }
 
   loadUsers() {
-    this.users$ = this.userService.getUsers();
+    this.users = this.userService.getUsers();
   }
 
   getRoleName(roleId: number): string {

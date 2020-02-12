@@ -4,7 +4,6 @@ import {HttpClient} from '@angular/common/http';
 import {ConfigService} from './config.service';
 import {Observable} from 'rxjs';
 import {UserModel} from '../pages/users/models/user-model';
-import {UserAddModel} from '../pages/users/models/user-add-model';
 import {UserShortModel} from '../pages/users/models/user-short-model';
 import {ExceptionService} from './exception.service';
 
@@ -47,22 +46,22 @@ export class UserService {
       );
   }
 
-  addUser(user: UserAddModel): Observable<UserModel> {
+  addUser(user: UserShortModel): Observable<UserModel> {
     return this.http.post<UserModel>(
       this.apiUrl, JSON.stringify(user), this.configService.getHttpOptions()
     ).pipe(
-        retry(1),
-        catchError(this.exceptionService.throwError)
-      );
+      retry(1),
+      catchError(this.exceptionService.throwError)
+    );
   }
 
   editUser(userId: string, user: UserShortModel): Observable<UserModel> {
     return this.http.put<UserModel>(
       this.apiUrl + userId, JSON.stringify(user), this.configService.getHttpOptions()
     ).pipe(
-        retry(1),
-        catchError(this.exceptionService.throwError)
-      );
+      retry(1),
+      catchError(this.exceptionService.throwError)
+    );
   }
 
   deleteUser(userId: string) {
