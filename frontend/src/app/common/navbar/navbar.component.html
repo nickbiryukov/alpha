@@ -12,12 +12,12 @@
     <div [ngClass]="{ 'show': navbarOpen }" class="collapse navbar-collapse">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a [routerLink]="['/rooms']" class="nav-link">Rooms</a>
+          <a [routerLink]="['/room-list']" class="nav-link">Rooms</a>
         </li>
         <li class="nav-item">
           <a [routerLink]="['/reservations']" class="nav-link">Reservations</a>
         </li>
-        <li class="nav-item" *ngIf=isManager>
+        <li *ngIf=isManager class="nav-item">
           <a [routerLink]="['/user-list']" class="nav-link">Users</a>
         </li>
       </ul>

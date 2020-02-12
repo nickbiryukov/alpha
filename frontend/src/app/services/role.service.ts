@@ -1,4 +1,4 @@
-import {Injectable, Pipe, PipeTransform} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {TokenStorageService} from './token.storage.service';
 import {UserModel} from '../pages/users/models/user-model';
 import {RoleOptions} from '../pages/auth/models/role-options';

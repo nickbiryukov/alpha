@@ -6,11 +6,11 @@
   <div class="card rounded shadow shadow-sm">
     <div class="card-header">
       <h3 class="float-left">Rooms</h3>
-      <a [routerLink]="['/room-add']" class="btn btn-outline-secondary float-right mb-3">Add Room</a>
+      <a *ngIf="isManager" [routerLink]="['/room-edit']" class="btn btn-outline-secondary float-right mb-3">Add Room</a>
     </div>
 
     <div class="card-body">
-      <table class="table table-hover" *ngIf="(rooms | async)?.length > 0">
+      <table *ngIf="(rooms | async)?.length > 0" class="table table-hover">
         <thead>
         <tr>
           <th>#</th>
@@ -29,8 +29,26 @@
           <td>{{ i + 1 }}</td>
           <td>{{ room.name }}</td>
           <td>{{ room.seat }}</td>
-          <td>{{ room.projector }}</td>
-          <td>{{ room.board }}</td>
+          <td>
+            <div class="custom-control custom-switch" *ngIf="room.projector">
+              <input type="checkbox" class="custom-control-input" id="switch1" disabled checked>
+              <label class="custom-control-label" for="switch1"></label>
+            </div>
+            <div class="custom-control custom-switch" *ngIf="!room.projector">
+              <input type="checkbox" class="custom-control-input" id="switch2" disabled >
+              <label class="custom-control-label" for="switch1"></label>
+            </div>
+          </td>
+          <td>
+            <div class="custom-control custom-switch" *ngIf="room.board">
+              <input type="checkbox" class="custom-control-input" id="switch3" disabled checked>
+              <label class="custom-control-label" for="switch1"></label>
+            </div>
+            <div class="custom-control custom-switch" *ngIf="!room.board">
+              <input type="checkbox" class="custom-control-input" id="switch4" disabled >
+              <label class="custom-control-label" for="switch1"></label>
+            </div>
+          </td>
           <td>{{ getEarlierTime(room) }}</td>
           <td><a [routerLink]="['/room-details/', room.id]" class="btn btn-outline-success btn-sm float-right">
             Details

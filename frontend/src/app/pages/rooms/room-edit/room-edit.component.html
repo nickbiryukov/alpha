@@ -1,1 +1,69 @@
-<p>room-edit works!</p>
+<ng-container class="container-md">
+
+  <div class="col-lg-6 col-md-12 mx-auto">
+    <div class="card rounded shadow shadow-sm">
+
+      <div class="card-header">
+        <h3 class="float-left">{{actionType}} Room</h3>
+      </div>
+
+      <div class="card-body">
+        <form #f="ngForm" (ngSubmit)="save()" [formGroup]="form" novalidate>
+
+          <div class="form-group row">
+            <label class="control-label col-md-12">Name</label>
+            <div class="col-md-12">
+              <input class="form-control" formControlName="name" type="text">
+            </div>
+            <span *ngIf="name.invalid && f.submitted" class="text-danger ml-3">Name is required.</span>
+          </div>
+
+          <div class="form-group row">
+            <label class="control-label col-md-12">Description</label>
+            <div class="col-md-12">
+              <textarea class="form-control" formControlName="description" rows="5" type="text"></textarea>
+            </div>
+            <span *ngIf="description.invalid && f.submitted" class="text-danger ml-3">Description is required.</span>
+          </div>
+
+          <div class="form-group row" style="margin-bottom: 70px">
+            <div class="col-md-4">
+              <div style="display: flex; flex-direction: column">
+                <label class="control-label">Board</label>
+                <input class="form-control-sm" formControlName="board" type="checkbox" style="display: flex">
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div style="display: flex; flex-direction: column">
+
+                <label class="control-label">Projector</label>
+                <input class="form-control-sm" formControlName="projector" type="checkbox">
+              </div>
+            </div>
+
+              <div class="custom-control custom-switch" >
+                <input type="checkbox" class="custom-control-input" id="switch1">
+                <label class="custom-control-label" for="switch1">Toggle me</label>
+              </div>
+
+            <div class="col-md-4">
+
+              <div class="">
+              <label class="control-label">Seat</label>
+                <input class="form-control" formControlName="seat" type="number">
+                <span *ngIf="seat.invalid && f.submitted" class="text-danger ml-3">Seat is required.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-outline-success float-right" type="submit">Save</button>
+            <button (click)="cancel()" class="btn btn-outline-secondary float-left">Cancel</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-container>

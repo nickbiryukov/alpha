@@ -24,9 +24,7 @@ namespace Alpha.Reservation.App.Services
 
         public async Task<User> AddUserAsync(ShortUserModel userModel)
         {
-            var existUser = await FirstOrDefaultAsync(a => a.Login == userModel.Login);
-
-            if (existUser != null)
+            if (await AnyAsync(a => a.Login == userModel.Login))
                 throw new Exception("User exist");
             
             userModel.Password = _hashProvider.CreateHash(userModel.Password);
@@ -38,7 +36,7 @@ namespace Alpha.Reservation.App.Services
         public async Task<User> GetByLogin(string login)
         {
             return await FirstOrDefaultAsync(a => a.Login == login) ??
-                   throw new Exception($"User '{login}' not found");
+                   throw new Exception($"User not found");
         }
 
         public async Task<User> UpdateUserAsync(Guid id, ShortUserModel userModel)

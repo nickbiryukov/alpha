@@ -56,7 +56,6 @@ export class LoginComponent implements OnInit {
       password: this.fm.password.value
     }).subscribe(a => {
         this.tokenStorageService.saveToken(a.value);
-
         this.userService.getUserByLogin(this.fm.username.value)
           .subscribe(b => {
               this.tokenStorageService.saveUser(b);

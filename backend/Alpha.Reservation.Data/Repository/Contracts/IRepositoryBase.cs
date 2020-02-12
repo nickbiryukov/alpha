@@ -10,6 +10,8 @@ namespace Alpha.Reservation.Data.Repository.Contracts
         Task<TEntity> GetAsync(Guid id);
         
         Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
+
+        Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate);
         
         Task<List<TEntity>> GetAllAsync();
         

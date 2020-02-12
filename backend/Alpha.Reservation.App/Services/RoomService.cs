@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Alpha.Reservation.App.Models.RoomModels;
 using Alpha.Reservation.App.Services.Contracts;
@@ -26,13 +27,23 @@ namespace Alpha.Reservation.App.Services
         {
             var rooms = await _context.Rooms
                 .Include(a => a.Reservations)
+                .AsNoTracking()
                 .ToListAsync();
+
+            rooms.ForEach(a =>
+                a.Reservations = a.Reservations
+                    .Where(b => b.BeginTime.Date >= DateTime.Now)
+                    .OrderBy(b => b.BeginTime).ToList()
+            );
 
             return rooms;
         }
 
         public async Task<Room> AddRoomAsync(ShortRoomModel roomModel)
         {
+            if (await AnyAsync(a => a.Name == roomModel.Name))
+                throw new Exception("Room exist");
+            
             var room = _mapper.Map<Room>(roomModel);
             return await AddAsync(room);
         }

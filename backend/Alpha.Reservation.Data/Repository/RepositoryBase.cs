@@ -29,6 +29,11 @@ namespace Alpha.Reservation.Data.Repository
             return _context.Set<TEntity>().FirstOrDefaultAsync(predicate);
         }
 
+        public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await _context.Set<TEntity>().AnyAsync(predicate);
+        }
+
         public async Task<List<TEntity>> GetAllAsync()
         {
             return await _context.Set<TEntity>().ToListAsync();

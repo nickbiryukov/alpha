@@ -26,9 +26,6 @@ namespace Alpha.Reservation.App.Services
             var reservation = await _context.Reservations
                 .Include(a => a.User)
                 .Include(a => a.Room)
-                .Where(a => a.Date >= DateTime.Now)
-                .OrderBy(a => a.Date)
-                .ThenBy(a => a.BeginTime)
                 .SingleOrDefaultAsync(a => a.Id == id);
 
             return reservation;
@@ -43,7 +40,7 @@ namespace Alpha.Reservation.App.Services
         public async Task<Data.Entities.Reservation> UpdateReservationAsync(Guid id, 
             ShortReservationModel reservationModel)
         {
-            if (DateTime.Now > reservationModel.Date)
+            if (DateTime.Now > reservationModel.BeginTime.Date)
                 throw new Exception("Past Date");
 
             if (reservationModel.BeginTime >= reservationModel.EndTime)
@@ -53,7 +50,6 @@ namespace Alpha.Reservation.App.Services
 
             reservation.Title = reservationModel.Title;
             reservation.Description = reservationModel.Description;
-            reservation.Date = reservationModel.Date;
             reservation.BeginTime = reservationModel.BeginTime;
             reservation.EndTime = reservationModel.EndTime;
             reservation.RoomId = reservationModel.RoomId;

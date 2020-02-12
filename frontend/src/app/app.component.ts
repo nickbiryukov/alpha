@@ -10,7 +10,6 @@ import {AuthService} from './services/auth.service';
 })
 export class AppComponent {
   title = 'frontend';
-  private isLoggedIn = false;
   private isManager = this.checkIsManager();
 
   constructor(

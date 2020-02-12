@@ -1,11 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import {RoomModel} from '../models/room-model';
 import {RoomService} from '../../../services/room.service';
 import {RoomWithDetails} from '../models/room-with-details';
 import {AuthService} from '../../../services/auth.service';
 import {RoleService} from '../../../services/role.service';
-import {Time} from '@angular/common';
 
 @Component({
   selector: 'app-room-list',
@@ -23,12 +21,12 @@ export class RoomListComponent implements OnInit {
   ) {
   }
 
-  ngOnInit() {
-    this.loadRooms();
-  }
-
   get isManager(): boolean {
     return this.roleService.IsManager;
+  }
+
+  ngOnInit() {
+    this.loadRooms();
   }
 
   getEarlierTime(room: RoomWithDetails): string {
@@ -37,11 +35,7 @@ export class RoomListComponent implements OnInit {
     if (!reservation) {
       return 'Free';
     } else {
-      const date = new Date(reservation.date).getDate();
-      const beginTime = reservation.beginTime.hours;
-      const endTime = reservation.endTime.hours;
-
-      return `${date} (${beginTime}-${endTime})`;
+      return `${reservation.beginTime}-${reservation.endTime})`;
     }
   }
 
