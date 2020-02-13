@@ -5,8 +5,8 @@
 
   <div class="card rounded shadow shadow-sm">
     <div class="card-header">
-      <h3 class="float-left">Rooms</h3>
-      <a *ngIf="isManager" [routerLink]="['/room-edit']" class="btn btn-outline-secondary float-right mb-3">Add Room</a>
+      <h4 class="float-left">Rooms</h4>
+      <a *ngIf="isManager" [routerLink]="['/room-edit']" class="btn btn-sm btn-outline-secondary float-right mb-3">Add Room</a>
     </div>
 
     <div class="card-body">
@@ -18,7 +18,7 @@
           <th>Seats</th>
           <th>Projector</th>
           <th>Board</th>
-          <th>Date</th>
+          <th>Earlier Date</th>
           <th></th>
           <th *ngIf="isManager"></th>
           <th *ngIf="isManager"></th>

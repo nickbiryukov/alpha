@@ -4,6 +4,7 @@ import {RoomService} from '../../../services/room.service';
 import {RoomWithDetails} from '../models/room-with-details';
 import {AuthService} from '../../../services/auth.service';
 import {RoleService} from '../../../services/role.service';
+import { format, compareAsc } from 'date-fns';
 
 @Component({
   selector: 'app-room-list',
@@ -35,7 +36,10 @@ export class RoomListComponent implements OnInit {
     if (!reservation) {
       return 'Free';
     } else {
-      return `${reservation.beginTime}-${reservation.endTime})`;
+      const beginTime = format(reservation.beginTime, 'dd-MM-yyyy HH:mm');
+      const endTime = format(reservation.endTime, 'dd-MM-yyyy HH:mm');
+
+      return `${beginTime} - ${endTime}`;
     }
   }
 

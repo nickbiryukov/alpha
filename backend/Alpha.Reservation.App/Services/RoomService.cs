@@ -32,7 +32,7 @@ namespace Alpha.Reservation.App.Services
 
             rooms.ForEach(a =>
                 a.Reservations = a.Reservations
-                    .Where(b => b.BeginTime.Date >= DateTime.Now)
+                    .Where(b => b.BeginTime.Date >= DateTime.Now.Date)
                     .OrderBy(b => b.BeginTime).ToList()
             );
 

@@ -4,7 +4,7 @@ export class ReservationModel {
   description: string;
   beginTime: Date;
   endTime: Date;
-  isConfirmed?: boolean;
+  isConfirmed: boolean | null;
   userId: string;
   roomId: string;
 }
