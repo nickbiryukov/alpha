@@ -14,10 +14,9 @@ import {catchError} from 'rxjs/operators';
 })
 export class UserEditComponent implements OnInit {
   private actionType: string;
-
   private userId: string;
-  private existingUser: UserModel;
 
+  private existingUser: UserModel;
   private form: FormGroup;
   private formLogin: string;
   private formPassword: string;
@@ -55,7 +54,7 @@ export class UserEditComponent implements OnInit {
       password: ['', [Validators.required]],
       name: ['', [Validators.required]],
       surname: ['', [Validators.required]],
-      role: ['', [Validators.required]]
+      role: [RoleOptions.OfficeManager]
     });
   }
 

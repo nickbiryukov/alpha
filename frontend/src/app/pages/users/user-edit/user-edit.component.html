@@ -55,9 +55,6 @@
                 <option *ngFor="let role of roles | enumToArray">{{ role.name }}</option>
               </select>
             </div>
-            <span *ngIf="role.invalid && f.submitted" class="text-danger ml-3">
-      Role is required.
-    </span>
           </div>
 
           <div class="form-group">

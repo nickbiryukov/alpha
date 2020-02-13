@@ -41,7 +41,7 @@ namespace Alpha.Reservation.API.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Login = table.Column<string>(maxLength: 50, nullable: false),
-                    Password = table.Column<string>(maxLength: 50, nullable: false),
+                    PasswordHash = table.Column<string>(maxLength: 100, nullable: false),
                     Name = table.Column<string>(maxLength: 100, nullable: true),
                     Surname = table.Column<string>(maxLength: 100, nullable: true),
                     RoleId = table.Column<int>(nullable: false)
@@ -64,9 +64,9 @@ namespace Alpha.Reservation.API.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Title = table.Column<string>(maxLength: 100, nullable: true),
                     Description = table.Column<string>(maxLength: 500, nullable: true),
-                    ReservationStart = table.Column<DateTimeOffset>(nullable: false),
-                    ReservationEnd = table.Column<DateTimeOffset>(nullable: false),
-                    IsConfirmed = table.Column<bool>(nullable: false),
+                    BeginTime = table.Column<DateTime>(nullable: false),
+                    EndTime = table.Column<DateTime>(nullable: false),
+                    IsConfirmed = table.Column<bool>(nullable: true),
                     UserId = table.Column<Guid>(nullable: false),
                     RoomId = table.Column<Guid>(nullable: false)
                 },
@@ -90,22 +90,20 @@ namespace Alpha.Reservation.API.Migrations
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "Name" },
-                values: new object[] { 1, "Office Manager" });
-
-            migrationBuilder.InsertData(
-                table: "Roles",
-                columns: new[] { "Id", "Name" },
-                values: new object[] { 2, "Employee" });
-
-            migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "Id", "Login", "Name", "Password", "RoleId", "Surname" },
-                values: new object[] { new Guid("dcbac25a-1160-4f34-beb7-b80300af27af"), "Manager", "ManagerName", "test", 1, "ManagerSurname" });
+                values: new object[,]
+                {
+                    { 1, "Office Manager" },
+                    { 2, "Employee" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "Login", "Name", "Password", "RoleId", "Surname" },
-                values: new object[] { new Guid("c1b459a7-ad4a-4f1c-8063-464fce436856"), "Employee", "EmployeeName", "test", 2, "EmployeeSurname" });
+                columns: new[] { "Id", "Login", "Name", "PasswordHash", "RoleId", "Surname" },
+                values: new object[,]
+                {
+                    { new Guid("10000000-0000-0000-0000-000000000000"), "Manager", "ManagerName", "9xHnygSC9V42fWBY8eqA8Q==.Yif8svarnDn8f+N3bhQ/6MyUSSIoo55uXIWv9XtFxyE=", 1, "ManagerSurname" },
+                    { new Guid("20000000-0000-0000-0000-000000000000"), "Employee", "EmployeeName", "9xHnygSC9V42fWBY8eqA8Q==.Yif8svarnDn8f+N3bhQ/6MyUSSIoo55uXIWv9XtFxyE=", 2, "EmployeeSurname" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reservations_RoomId",
@@ -116,6 +114,12 @@ namespace Alpha.Reservation.API.Migrations
                 name: "IX_Reservations_UserId",
                 table: "Reservations",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Login",
+                table: "Users",
+                column: "Login",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_RoleId",
