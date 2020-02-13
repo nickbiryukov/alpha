@@ -1,35 +1,37 @@
-<div class="card rounded shadow shadow-sm" style="margin-bottom: 30px">
-  <nav *ngIf=isloggedIn class="navbar navbar-expand-lg navbar-light bg-light">
+<div *ngIf=isloggedIn>
+  <div class="card rounded shadow shadow-sm" style="margin-bottom: 30px">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-    <a [routerLink]="['/']" class="navbar-brand">
-      <strong>ALPHA</strong>
-    </a>
+      <a [routerLink]="['/']" class="navbar-brand">
+        <strong>ALPHA</strong>
+      </a>
 
-    <button (click)="toggleNavbar()" class="navbar-toggler" type="button">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+      <button (click)="toggleNavbar()" class="navbar-toggler" type="button">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <div [ngClass]="{ 'show': navbarOpen }" class="collapse navbar-collapse">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a [routerLink]="['/room-list']" class="nav-link">Rooms</a>
-        </li>
-        <li class="nav-item">
-          <a [routerLink]="['/reservations']" class="nav-link">Reservations</a>
-        </li>
-        <li *ngIf=isManager class="nav-item">
-          <a [routerLink]="['/user-list']" class="nav-link">Users</a>
-        </li>
-      </ul>
+      <div [ngClass]="{ 'show': navbarOpen }" class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a [routerLink]="['/room-list']" class="nav-link">Rooms</a>
+          </li>
+          <li class="nav-item">
+            <a [routerLink]="['/reservations']" class="nav-link">Reservations</a>
+          </li>
+          <li *ngIf=isManager class="nav-item">
+            <a [routerLink]="['/user-list']" class="nav-link">Users</a>
+          </li>
+        </ul>
 
-      <ul class="nav navbar-nav navbar-right">
-        <li class="nav-item">
-          <a (click)="signOut()" [routerLink]="['/login']" class="nav-link">
-            Sign Out ({{currentUser.login}})
-          </a>
-        </li>
-      </ul>
-    </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="nav-item">
+            <a (click)="signOut()" [routerLink]="['/login']" class="nav-link">
+              Sign Out ({{currentUser.login}})
+            </a>
+          </li>
+        </ul>
+      </div>
 
-  </nav>
+    </nav>
+  </div>
 </div>

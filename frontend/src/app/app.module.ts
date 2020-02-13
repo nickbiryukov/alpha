@@ -20,6 +20,7 @@ import {TokenStorageService} from './services/token.storage.service';
 import {NavbarComponent} from './common/navbar/navbar.component';
 import {EnumToArrayPipe} from './common/pipes/enum-to-array.pipe';
 import {RoomEditComponent} from './pages/rooms/room-edit/room-edit.component';
+import { RoomDetailsComponent } from './pages/rooms/room-details/room-details.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import {RoomEditComponent} from './pages/rooms/room-edit/room-edit.component';
     RoomListComponent,
     NavbarComponent,
     EnumToArrayPipe,
-    RoomEditComponent
+    RoomEditComponent,
+    RoomDetailsComponent
   ],
   imports: [
     BrowserModule,
