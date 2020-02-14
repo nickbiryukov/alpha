@@ -1,0 +1,60 @@
+<ng-container class="container-md">
+
+  <div class="col-lg-6 col-md-12 mx-auto">
+    <div class="card rounded shadow shadow-sm">
+
+      <div class="card-header">
+        <h3 class="float-left">Make a Reservation</h3>
+      </div>
+
+      <div class="card-body">
+        <form #f="ngForm" (ngSubmit)="save()" [formGroup]="form" novalidate>
+
+          <div class="form-group row">
+            <label class="control-label col-md-12">Title</label>
+            <div class="col-md-12">
+              <input class="form-control" formControlName="title" type="text">
+            </div>
+            <span *ngIf="title.invalid && f.submitted"
+                  class="text-danger ml-3">Name is required (Length 0...100)</span>
+          </div>
+
+          <div class="form-group row">
+            <label class="control-label col-md-12">Description</label>
+            <div class="col-md-12">
+              <textarea class="form-control"
+                        formControlName="description"
+                        rows="5"
+                        type="text">
+
+              </textarea>
+            </div>
+            <span *ngIf="description.invalid && f.submitted" class="text-danger ml-3">Length 0...500</span>
+          </div>
+
+          <div class="form-group row">
+
+            <div class="col-6">
+              <label class="control-label">Begin Time</label>
+              <input class="form-control" formControlName="beginTime" type="datetime-local">
+              <span *ngIf="beginTime.invalid && f.submitted" class="text-danger ml-3">Name is required (Length 0...100)</span>
+            </div>
+
+            <div class="col-6">
+              <label class="control-label">End Time</label>
+              <input class="form-control" formControlName="endTime" type="datetime-local">
+              <span *ngIf="endTime.invalid && f.submitted" class="text-danger ml-3">Name is required (Length 0...100)</span>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <button class="btn btn-outline-primary float-right" type="submit">Save</button>
+            <button (click)="cancel()" class="btn btn-outline-secondary float-left">Cancel</button>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-container>

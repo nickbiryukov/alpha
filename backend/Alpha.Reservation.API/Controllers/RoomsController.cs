@@ -38,7 +38,13 @@ namespace Alpha.Reservation.API.Controllers
         [HttpGet("WithDetails")]
         public async Task<List<RoomWithDetailsModel>> GetWithDetails()
         {
-            return _mapper.Map<List<RoomWithDetailsModel>>(await _roomService.GetWithDetails());
+            return _mapper.Map<List<RoomWithDetailsModel>>(await _roomService.GetWithDetailsAsync());
+        }
+        
+        [HttpGet("WithDetails/{id}")]
+        public async Task<RoomWithDetailsModel> GetWithDetailsById([FromRoute] Guid id)
+        {
+            return _mapper.Map<RoomWithDetailsModel>(await _roomService.GetWithDetailsAsync(id));
         }
 
         [Authorize(Roles = "Office Manager")]
@@ -50,14 +56,14 @@ namespace Alpha.Reservation.API.Controllers
 
         [Authorize(Roles = "Office Manager")]
         [HttpPut("{id}")]
-        public async Task<RoomModel> Put(Guid id, [FromBody] ShortRoomModel roomModel)
+        public async Task<RoomModel> Put([FromRoute] Guid id, [FromBody] ShortRoomModel roomModel)
         {
             return _mapper.Map<RoomModel>(await _roomService.UpdateRoomAsync(id, roomModel));
         }
 
         [Authorize(Roles = "Office Manager")]
         [HttpDelete("{id}")]
-        public async Task Delete(Guid id)
+        public async Task Delete([FromRoute] Guid id)
         {
             await _roomService.DeleteAsync(id);
         }

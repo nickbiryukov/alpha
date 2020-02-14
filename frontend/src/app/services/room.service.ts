@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
 import {catchError, retry} from 'rxjs/operators';
 import {RoomModel} from '../pages/rooms/models/room-model';
 import {RoomShortModel} from '../pages/rooms/models/room-short-model';
-import {RoomWithDetails} from '../pages/rooms/models/room-with-details';
+import {RoomWithDetailsModel} from '../pages/rooms/models/room-with-details';
 
 @Injectable({
   providedIn: 'root'
@@ -30,8 +30,16 @@ export class RoomService {
       );
   }
 
-  getRoomWithDetails(): Observable<RoomWithDetails[]> {
-    return this.http.get<RoomWithDetails[]>(this.apiUrl + 'withDetails')
+  getRoomWithDetails(): Observable<RoomWithDetailsModel[]> {
+    return this.http.get<RoomWithDetailsModel[]>(this.apiUrl + 'withDetails')
+      .pipe(
+        retry(1),
+        catchError(this.exceptionService.throwError)
+      );
+  }
+
+  getRoomWithDetailsById(roomId: string): Observable<RoomWithDetailsModel> {
+    return this.http.get<RoomWithDetailsModel>(this.apiUrl + 'withDetails/' + roomId)
       .pipe(
         retry(1),
         catchError(this.exceptionService.throwError)

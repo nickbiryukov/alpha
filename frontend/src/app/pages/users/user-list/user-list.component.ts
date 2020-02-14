@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {interval, Observable, Subscription} from 'rxjs';
+import {Subscription} from 'rxjs';
 import {UserModel} from '../models/user-model';
 import {UserService} from '../../../services/user.service';
 import {RoleService} from '../../../services/role.service';
@@ -11,8 +11,7 @@ import {RoleService} from '../../../services/role.service';
 })
 export class UserListComponent implements OnInit {
   private isManager: boolean;
-  private updateSubscription: Subscription;
-  private users: Observable<UserModel[]>;
+  private users: UserModel[];
 
   constructor(
     private userService: UserService,
@@ -23,12 +22,13 @@ export class UserListComponent implements OnInit {
 
   ngOnInit() {
     this.loadUsers();
-    this.updateSubscription = interval(10000)
-      .subscribe(() => this.loadUsers());
   }
 
   loadUsers() {
-    this.users = this.userService.getUsers();
+    this.userService.getUsers()
+      .subscribe(data => {
+        this.users = data;
+      });
   }
 
   getRoleName(roleId: number): string {

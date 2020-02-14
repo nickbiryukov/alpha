@@ -38,7 +38,7 @@ export class TokenStorageService {
     localStorage.setItem(USER_KEY, JSON.stringify(user));
   }
 
-  public getUser() {
+  public getUser(): UserModel {
     return JSON.parse(localStorage.getItem(USER_KEY));
   }
 

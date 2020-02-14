@@ -1,4 +1,4 @@
-<div *ngIf="!(rooms | async)">
+<div *ngIf="!rooms">
   <app-loader></app-loader>
 </div>
 <ng-container class="container-lg">
@@ -6,56 +6,57 @@
   <div class="card rounded shadow shadow-sm">
     <div class="card-header">
       <h4 class="float-left">Rooms</h4>
-      <a *ngIf="isManager" [routerLink]="['/room-edit']" class="btn btn-sm btn-outline-secondary float-right mb-3">Add Room</a>
+      <a *ngIf="isManager" [routerLink]="['/room-edit']" class="btn btn-sm btn-outline-success float-right mb-3">Add
+        Room</a>
     </div>
 
     <div class="card-body">
-      <table *ngIf="(rooms | async)?.length > 0" class="table table-hover">
+      <table *ngIf="rooms?.length > 0" class="table table-hover">
         <thead>
-        <tr>
-          <th>#</th>
-          <th>Name</th>
-          <th>Seats</th>
-          <th>Projector</th>
-          <th>Board</th>
-          <th>Earlier Date</th>
-          <th></th>
-          <th *ngIf="isManager"></th>
-          <th *ngIf="isManager"></th>
-        </tr>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Seats</th>
+            <th>Board</th>
+            <th>Projector</th>
+            <th>Earlier Date</th>
+            <th></th>
+            <th *ngIf="isManager"></th>
+            <th *ngIf="isManager"></th>
+          </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let room of (rooms | async); let i = index">
-          <td>{{ i + 1 }}</td>
-          <td>{{ room.name }}</td>
-          <td>{{ room.seat }}</td>
-          <td>
-            <div class="custom-control custom-switch">
-              <input [checked]="room.projector" class="custom-control-input" type="checkbox">
-              <label class="custom-control-label"></label>
-            </div>
-          </td>
-          <td>
-            <div class="custom-control custom-switch">
-              <input [checked]="room.board" class="custom-control-input" type="checkbox">
-              <label class="custom-control-label"></label>
-            </div>
-          </td>
-          <td>{{ getEarlierTime(room) }}</td>
-          <td><a [routerLink]="['/room-details/', room.id]" class="btn btn-outline-success btn-sm float-right">
-            Details
-          </a></td>
-          <td *ngIf="isManager">
-            <a [routerLink]="['/room-edit/', room.id]" class="btn btn-outline-primary btn-sm float-right">
-              Edit
-            </a>
-          </td>
-          <td *ngIf="isManager">
-            <button (click)="delete(room.id, room.name)" class="btn btn-outline-danger btn-sm float-right">
-              Delete
-            </button>
-          </td>
-        </tr>
+          <tr *ngFor="let room of rooms; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ room.name }}</td>
+            <td>{{ room.seat }}</td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [checked]="room.board" class="custom-control-input" type="checkbox">
+                <label class="custom-control-label"></label>
+              </div>
+            </td>
+            <td>
+              <div class="custom-control custom-switch">
+                <input [checked]="room.projector" class="custom-control-input" type="checkbox">
+                <label class="custom-control-label"></label>
+              </div>
+            </td>
+            <td>{{ getEarlierDate(room) }}</td>
+            <td><a [routerLink]="['/room-details/', room.id]" class="btn btn-outline-info btn-sm float-right">
+                Details
+              </a></td>
+            <td *ngIf="isManager">
+              <a [routerLink]="['/room-edit/', room.id]" class="btn btn-outline-warning btn-sm float-right">
+                Edit
+              </a>
+            </td>
+            <td *ngIf="isManager">
+              <button (click)="delete(room.id, room.name)" class="btn btn-outline-danger btn-sm float-right">
+                Delete
+              </button>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>

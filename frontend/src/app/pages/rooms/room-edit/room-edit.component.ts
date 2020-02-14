@@ -46,10 +46,8 @@ export class RoomEditComponent implements OnInit {
     }
 
     this.form = this.formBuilder.group({
-      userId: '',
-
       name: ['', [Validators.required, Validators.maxLength(100)]],
-      description: ['', Validators.maxLength(500)],
+      description: ['', [Validators.maxLength(500)]],
       board: [false, [Validators.required]],
       projector: [false, [Validators.required]],
       seat: ['', [Validators.required, Validators.min(0), Validators.max(1000)]]

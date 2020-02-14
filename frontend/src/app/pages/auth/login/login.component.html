@@ -1,44 +1,41 @@
 <ng-container class="container-sm">
-
   <div class="row justify-content-center align-items-center" style="min-height: 85vh">
     <div class="col-lg-3 col-md-6 ">
       <div class="card rounded shadow shadow-sm">
-
         <div class="card-header">
           <h4 class="mb-0">Login</h4>
         </div>
 
         <div class="card-body">
           <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
-
             <div class="form-group">
               <label for="username">Username</label>
               <input [ngClass]="{ 'is-invalid': submitted && fm.username.errors }" class="form-control"
-                     formControlName="username" id="username"
-                     type="text"/>
+                formControlName="username" id="username" type="text" />
               <div *ngIf="submitted && fm.username.errors" class="invalid-feedback">
-                <div *ngIf="fm.username.errors.required">Username is required</div>
+                <div *ngIf="fm.username.errors.required">
+                  Username is required
+                </div>
               </div>
             </div>
 
             <div class="form-group">
               <label for="password">Password</label>
               <input [ngClass]="{ 'is-invalid': submitted && fm.password.errors }" class="form-control"
-                     formControlName="password" id="password"
-                     type="password"/>
-                  <div *ngIf="submitted && fm.password.errors" class="invalid-feedback">
-                    <div *ngIf="fm.password.errors.required">Password is required</div>
-                  </div>
+                formControlName="password" id="password" type="password" />
+              <div *ngIf="submitted && fm.password.errors" class="invalid-feedback">
+                <div *ngIf="fm.password.errors.required">
+                  Password is required
+                </div>
+              </div>
             </div>
 
-              <div class="form-group">
-                <button class="btn btn-outline-primary">Login</button>
-              </div>
-
+            <div class="form-group">
+              <button class="btn btn-outline-primary">Login</button>
+            </div>
           </form>
         </div>
       </div>
     </div>
   </div>
-
 </ng-container>

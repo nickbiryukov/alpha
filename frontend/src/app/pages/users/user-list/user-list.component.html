@@ -1,4 +1,4 @@
-<div *ngIf="!(users | async)">
+<div *ngIf="!users">
   <app-loader></app-loader>
 </div>
 
@@ -7,11 +7,11 @@
   <div class="card rounded shadow shadow-sm">
     <div class="card-header">
       <h4 class="float-left">Users</h4>
-      <a [routerLink]="['/user-edit']" class="btn btn-sm btn-outline-secondary float-right mb-3">Add User</a>
+      <a [routerLink]="['/user-edit']" class="btn btn-sm btn-outline-success float-right mb-3">Add User</a>
     </div>
 
     <div class="card-body">
-      <table *ngIf="(users | async)?.length > 0" class="table table-hover">
+      <table *ngIf="users?.length > 0" class="table table-hover">
         <thead>
         <tr>
           <th>#</th>
@@ -24,14 +24,14 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let user of (users | async); let i = index">
+        <tr *ngFor="let user of users; let i = index">
           <td>{{ i + 1  }}</td>
           <td>{{ user.login }}</td>
           <td>{{ user.name }}</td>
           <td>{{ user.surname }}</td>
           <td>{{ getRoleName(user.roleId) }}</td>
           <td>
-            <a [routerLink]="['/user-edit/', user.id]" class="btn btn-outline-primary btn-sm float-right">
+            <a [routerLink]="['/user-edit/', user.id]" class="btn btn-outline-warning btn-sm float-right">
               Edit
             </a>
           </td>

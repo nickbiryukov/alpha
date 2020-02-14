@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Alpha.Reservation.API.Controllers
 {
-    //[Authorize(Roles = "Office Manager")]
+    [Authorize(Roles = "Office Manager")]
     [ApiController]
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
@@ -27,7 +27,7 @@ namespace Alpha.Reservation.API.Controllers
         [HttpGet("ByLogin/{login}")]
         public async Task<UserModel> GetByLogin(string login)
         {
-            return _mapper.Map<UserModel>(await _userService.GetByLogin(login));
+            return _mapper.Map<UserModel>(await _userService.GetByLoginAsync(login));
         }
         
         [HttpGet]
@@ -49,13 +49,13 @@ namespace Alpha.Reservation.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<UserModel> Put(Guid id, [FromBody] ShortUserModel userModel)
+        public async Task<UserModel> Put([FromRoute] Guid id, [FromBody] ShortUserModel userModel)
         {
             return _mapper.Map<UserModel>(await _userService.UpdateUserAsync(id, userModel));
         }
 
         [HttpDelete("{id}")]
-        public async Task Delete(Guid id)
+        public async Task Delete([FromRoute] Guid id)
         {
             await _userService.DeleteAsync(id);
         }

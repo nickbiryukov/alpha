@@ -14,8 +14,8 @@
               <input class="form-control" formControlName="login" type="text">
             </div>
             <span *ngIf="login.invalid && f.submitted" class="text-danger ml-3">
-      Login is required.
-    </span>
+              Login is required.
+            </span>
           </div>
 
           <div class="form-group row">
@@ -24,8 +24,8 @@
               <input class="form-control" formControlName="password" type="text">
             </div>
             <span *ngIf="password.invalid && f.submitted" class="text-danger ml-3">
-      Password is required.
-    </span>
+              Password is required.
+            </span>
           </div>
 
           <div class="form-group row">
@@ -34,8 +34,8 @@
               <input class="form-control" formControlName="name" type="text">
             </div>
             <span *ngIf="name.invalid && f.submitted" class="text-danger ml-3">
-      Name is required.
-    </span>
+              Name is required.
+            </span>
           </div>
 
           <div class="form-group row">
@@ -44,8 +44,8 @@
               <input class="form-control" formControlName="surname" type="text">
             </div>
             <span *ngIf="surname.invalid && f.submitted" class="text-danger ml-3">
-      Surname is required.
-    </span>
+              Surname is required.
+            </span>
           </div>
 
           <div class="form-group row" style="margin-bottom: 70px">
@@ -54,11 +54,14 @@
               <select class="form-control form-control-lg" formControlName="role">
                 <option *ngFor="let role of roles | enumToArray">{{ role.name }}</option>
               </select>
+              <span *ngIf="surname.invalid && f.submitted" class="text-danger ml-3">
+                Surname is required.
+              </span>
             </div>
           </div>
 
           <div class="form-group">
-            <button class="btn btn-outline-success float-right" type="submit">Save</button>
+            <button class="btn btn-outline-primary float-right" type="submit">Save</button>
             <button (click)="cancel()" class="btn btn-outline-secondary float-left">Cancel</button>
           </div>
         </form>

@@ -15,15 +15,18 @@ namespace Alpha.Reservation.App.Services
     public class RoomService : RepositoryBase<Room, DatabaseContext>, IRoomService
     {
         private readonly DatabaseContext _context;
+        private readonly IReservationService _reservationService;
         private readonly IMapper _mapper;
         
-        public RoomService(DatabaseContext context, IMapper mapper) : base(context)
+        public RoomService(DatabaseContext context, IMapper mapper, IReservationService reservationService) 
+            : base(context)
         {
             _context = context;
             _mapper = mapper;
+            _reservationService = reservationService;
         }
 
-        public async Task<List<Room>> GetWithDetails()
+        public async Task<List<Room>> GetWithDetailsAsync()
         {
             var rooms = await _context.Rooms
                 .Include(a => a.Reservations)
@@ -32,11 +35,29 @@ namespace Alpha.Reservation.App.Services
 
             rooms.ForEach(a =>
                 a.Reservations = a.Reservations
-                    .Where(b => b.BeginTime.Date >= DateTime.Now.Date)
-                    .OrderBy(b => b.BeginTime).ToList()
+                    .Where(_reservationService.IsValidReservationDate)
+                    .OrderBy(b => b.BeginTime)
+                    .ThenBy(b => b.BeginTime.TimeOfDay)
+                    .ToList()
             );
 
             return rooms;
+        }
+
+        public async Task<Room> GetWithDetailsAsync(Guid id)
+        {
+            var room =  await _context.Rooms
+                .Include(a => a.Reservations)
+                .AsNoTracking()
+                .SingleOrDefaultAsync(a => a.Id == id);
+
+            room.Reservations = room.Reservations
+                .Where(_reservationService.IsValidReservationDate)
+                .OrderBy(b => b.BeginTime)
+                .ThenBy(b => b.BeginTime.TimeOfDay)
+                .ToList();
+
+            return room;
         }
 
         public async Task<Room> AddRoomAsync(ShortRoomModel roomModel)

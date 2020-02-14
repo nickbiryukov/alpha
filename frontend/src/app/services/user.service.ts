@@ -23,27 +23,27 @@ export class UserService {
   }
 
   getUsers(): Observable<UserModel[]> {
-    return this.http.get<UserModel[]>(this.apiUrl)
-      .pipe(
-        retry(1),
-        catchError(this.exceptionService.throwError)
-      );
+    return this.http.get<UserModel[]>(this.apiUrl
+    ).pipe(
+      retry(1),
+      catchError(this.exceptionService.throwError)
+    );
   }
 
   getUser(userId: string): Observable<UserModel> {
-    return this.http.get<UserModel>(this.apiUrl + userId)
-      .pipe(
-        retry(1),
-        catchError(this.exceptionService.throwError)
-      );
+    return this.http.get<UserModel>(this.apiUrl + userId
+    ).pipe(
+      retry(1),
+      catchError(this.exceptionService.throwError)
+    );
   }
 
   getUserByLogin(login: string): Observable<UserModel> {
-    return this.http.get<UserModel>(this.apiUrl + `ByLogin/${login}`)
-      .pipe(
-        retry(1),
-        catchError(this.exceptionService.throwError)
-      );
+    return this.http.get<UserModel>(this.apiUrl + `ByLogin/${login}`
+    ).pipe(
+      retry(1),
+      catchError(this.exceptionService.throwError)
+    );
   }
 
   addUser(user: UserShortModel): Observable<UserModel> {
@@ -65,10 +65,10 @@ export class UserService {
   }
 
   deleteUser(userId: string) {
-    return this.http.delete(this.apiUrl + userId)
-      .pipe(
-        retry(1),
-        catchError(this.exceptionService.throwError)
-      );
+    return this.http.delete(this.apiUrl + userId
+    ).pipe(
+      retry(1),
+      catchError(this.exceptionService.throwError)
+    );
   }
 }

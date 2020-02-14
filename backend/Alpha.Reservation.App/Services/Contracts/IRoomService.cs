@@ -9,7 +9,9 @@ namespace Alpha.Reservation.App.Services.Contracts
 {
     public interface IRoomService : IRepositoryBase<Room>
     {
-        Task<List<Room>> GetWithDetails();
+        Task<List<Room>> GetWithDetailsAsync();
+
+        Task<Room> GetWithDetailsAsync(Guid id);
     
         Task<Room> AddRoomAsync(ShortRoomModel roomModel);
 

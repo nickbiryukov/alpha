@@ -48,8 +48,6 @@ export class UserEditComponent implements OnInit {
     }
 
     this.form = this.formBuilder.group({
-      userId: '',
-
       login: ['', [Validators.required]],
       password: ['', [Validators.required]],
       name: ['', [Validators.required]],

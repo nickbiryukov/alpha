@@ -33,7 +33,7 @@ namespace Alpha.Reservation.App.Services
             return await AddAsync(user);
         }
 
-        public async Task<User> GetByLogin(string login)
+        public async Task<User> GetByLoginAsync(string login)
         {
             return await FirstOrDefaultAsync(a => a.Login == login) ??
                    throw new Exception($"User not found");

@@ -90,20 +90,22 @@ namespace Alpha.Reservation.API.Migrations
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "Id", "Name" },
-                values: new object[,]
-                {
-                    { 1, "Office Manager" },
-                    { 2, "Employee" }
-                });
+                values: new object[] { 1, "Office Manager" });
+
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "Id", "Name" },
+                values: new object[] { 2, "Employee" });
 
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Login", "Name", "PasswordHash", "RoleId", "Surname" },
-                values: new object[,]
-                {
-                    { new Guid("10000000-0000-0000-0000-000000000000"), "Manager", "ManagerName", "9xHnygSC9V42fWBY8eqA8Q==.Yif8svarnDn8f+N3bhQ/6MyUSSIoo55uXIWv9XtFxyE=", 1, "ManagerSurname" },
-                    { new Guid("20000000-0000-0000-0000-000000000000"), "Employee", "EmployeeName", "9xHnygSC9V42fWBY8eqA8Q==.Yif8svarnDn8f+N3bhQ/6MyUSSIoo55uXIWv9XtFxyE=", 2, "EmployeeSurname" }
-                });
+                values: new object[] { new Guid("10000000-0000-0000-0000-000000000000"), "Manager", "ManagerName", "9xHnygSC9V42fWBY8eqA8Q==.Yif8svarnDn8f+N3bhQ/6MyUSSIoo55uXIWv9XtFxyE=", 1, "ManagerSurname" });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "Id", "Login", "Name", "PasswordHash", "RoleId", "Surname" },
+                values: new object[] { new Guid("20000000-0000-0000-0000-000000000000"), "Employee", "EmployeeName", "9xHnygSC9V42fWBY8eqA8Q==.Yif8svarnDn8f+N3bhQ/6MyUSSIoo55uXIWv9XtFxyE=", 2, "EmployeeSurname" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reservations_RoomId",

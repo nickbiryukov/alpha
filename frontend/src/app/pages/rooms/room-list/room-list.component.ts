@@ -1,10 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
 import {RoomService} from '../../../services/room.service';
-import {RoomWithDetails} from '../models/room-with-details';
+import {RoomWithDetailsModel} from '../models/room-with-details';
 import {AuthService} from '../../../services/auth.service';
 import {RoleService} from '../../../services/role.service';
 import { format, compareAsc } from 'date-fns';
+import {catchError, retry} from 'rxjs/operators';
+import {ExceptionService} from '../../../services/exception.service';
 
 @Component({
   selector: 'app-room-list',
@@ -13,12 +15,13 @@ import { format, compareAsc } from 'date-fns';
 })
 export class RoomListComponent implements OnInit {
 
-  private rooms: Observable<RoomWithDetails[]>;
+  private rooms: RoomWithDetailsModel[];
 
   constructor(
     private roomService: RoomService,
     private authService: AuthService,
-    private roleService: RoleService
+    private roleService: RoleService,
+    private exceptionService: ExceptionService
   ) {
   }
 
@@ -30,21 +33,27 @@ export class RoomListComponent implements OnInit {
     this.loadRooms();
   }
 
-  getEarlierTime(room: RoomWithDetails): string {
+  getEarlierDate(room: RoomWithDetailsModel): string {
     const reservation = room.reservationModels[0];
 
     if (!reservation) {
       return 'Free';
     } else {
-      const beginTime = format(reservation.beginTime, 'dd-MM-yyyy HH:mm');
-      const endTime = format(reservation.endTime, 'dd-MM-yyyy HH:mm');
-
+      const beginTime = this.getFormatTime(reservation.beginTime);
+      const endTime = this.getFormatTime(reservation.endTime);
       return `${beginTime} - ${endTime}`;
     }
   }
 
+  getFormatTime(date: Date): string {
+    return format(new Date(date), 'dd/MM/yyyy HH:mm');
+  }
+
   loadRooms() {
-    this.rooms = this.roomService.getRoomWithDetails();
+     this.roomService.getRoomWithDetails()
+      .subscribe(data => {
+        this.rooms = data;
+    }, catchError(this.exceptionService.throwError));
   }
 
   delete(roomId: string, name: string) {

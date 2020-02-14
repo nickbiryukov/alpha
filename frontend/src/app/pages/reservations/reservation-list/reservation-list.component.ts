@@ -1,53 +1,40 @@
 import { Component, OnInit } from '@angular/core';
+import {ReservationModel} from '../models/reservation-model';
 import {RoomService} from '../../../services/room.service';
 import {AuthService} from '../../../services/auth.service';
 import {RoleService} from '../../../services/role.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {RoomWithDetailsModel} from '../models/room-with-details';
 import {ReservationService} from '../../../services/reservation.service';
 import {catchError} from 'rxjs/operators';
 import {ExceptionService} from '../../../services/exception.service';
 import {format} from 'date-fns';
-import {ReservationModel} from '../../reservations/models/reservation-model';
+import {interval, Subscription} from 'rxjs';
 
 @Component({
-  selector: 'app-room-details',
-  templateUrl: './room-details.component.html',
-  styleUrls: ['./room-details.component.css']
+  selector: 'app-reservation-list',
+  templateUrl: './reservation-list.component.html',
+  styleUrls: ['./reservation-list.component.css']
 })
-export class RoomDetailsComponent implements OnInit {
-
-  private roomId: string;
-  private room: RoomWithDetailsModel;
+export class ReservationListComponent implements OnInit {
   private reservations: ReservationModel[];
+  private updateSubscription: Subscription;
 
   constructor(
     private roomService: RoomService,
+    private reservationService: ReservationService,
     private authService: AuthService,
     private roleService: RoleService,
-    private avRoute: ActivatedRoute,
-    private router: Router,
-    private reservationService: ReservationService,
     private exceptionService: ExceptionService
   ) {
-    this.roomId = this.avRoute.snapshot.params.id;
+    this.updateSubscription = interval(10000)
+    .subscribe(() => this.loadReservations());
+  }
+
+  ngOnInit() {
+    this.loadReservations();
   }
 
   get isManager(): boolean {
     return this.roleService.IsManager;
-  }
-
-  ngOnInit() {
-    this.loadRoomDetails(this.roomId);
-  }
-
-  loadRoomDetails(roomId: string) {
-    this.roomService.getRoomWithDetailsById(roomId)
-      .subscribe(data => {
-        this.room = data;
-        this.reservations = this.room.reservationModels;
-      }, catchError(this.exceptionService.throwError)
-    );
   }
 
   getFormatTime(date: Date): string {
@@ -57,9 +44,16 @@ export class RoomDetailsComponent implements OnInit {
   editConfirmation(reservationId: string, confirmation: boolean) {
     return this.reservationService.editConfirmationReservation(reservationId, confirmation)
       .subscribe(() => {
-          this.loadRoomDetails(this.roomId);
+          this.loadReservations();
         },
         catchError(this.exceptionService.throwError)
       );
+  }
+
+  loadReservations() {
+    this.reservationService.getReservations()
+      .subscribe(data => {
+        this.reservations = data;
+      }, catchError(this.exceptionService.throwError));
   }
 }

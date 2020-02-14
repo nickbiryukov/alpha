@@ -47,8 +47,8 @@ namespace Alpha.Reservation.API
                 {
                     a.DbOptions = new DbOptions
                     {
-                        DbConnection = _configuration["PostgresDbSettings:DbConnection"],
-                        DbMigrationAssembly = _configuration["PostgresDbSettings:DbMigrationAssembly"]
+                        DbConnection = _configuration["SqlServerDbSettings:DbConnection"],
+                        DbMigrationAssembly = _configuration["SqlServerDbSettings:DbMigrationAssembly"]
                     };
                 });
         }

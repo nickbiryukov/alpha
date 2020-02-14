@@ -10,7 +10,7 @@ namespace Alpha.Reservation.App.Services.Contracts
     {
         Task<User> AddUserAsync(ShortUserModel userModel);
 
-        Task<User> GetByLogin(string login);
+        Task<User> GetByLoginAsync(string login);
         
         Task<User> UpdateUserAsync(Guid id, ShortUserModel userModel);
     }
